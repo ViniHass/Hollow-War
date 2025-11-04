@@ -5,6 +5,20 @@ using System.Collections;
 
 public class GameIntroTMP : MonoBehaviour
 {
+
+    public void IniciarJogo()
+    {
+        SceneManager.LoadScene("Overworld");
+
+        // Carrega a segunda cena sem descarregar a primeira
+        SceneManager.LoadScene("Pradaria", LoadSceneMode.Additive);
+    }
+
+    public void SairDoJogo()
+    {
+        Application.Quit();
+    }
+
     [Header("Referências UI (TextMeshPro)")]
     public TMP_Text textoInicial;
     public TMP_Text textoPrologo;
@@ -40,18 +54,5 @@ public class GameIntroTMP : MonoBehaviour
         // 3️⃣ Mostra painel final (imagem + botões) e toca som
         painelFinal.SetActive(true);
         if (audioIntro != null) audioIntro.Play();
-    }
-
-    // Chamado pelo botão “Play”
-    public void IniciarJogo()
-    {
-        SceneManager.LoadScene("CenaPrincipal"); // Troque pelo nome da sua cena principal
-    }
-
-    // Chamado pelo botão “Sair”
-    public void SairJogo()
-    {
-        Application.Quit();
-        Debug.Log("Jogo encerrado.");
     }
 }
