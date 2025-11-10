@@ -1,71 +1,135 @@
-using System.Globalization;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class NPCQuest : MonoBehaviour, IInteractable // Implementa nossa interface existente!
-{
-    // Enum para controlar o estado da quest
+public class NPCQuest : MonoBehaviour, IInteractable {
 
-    string name = "Lil Vini";
-    
-    private enum QuestState { NotStarted, Started, Completed }
-    private QuestState currentState = QuestState.NotStarted;
+    [Header("Referência ao Sistema de Diálogo")]
+    [SerializeField] private DialogueSystem dialogueSystem;
 
-    [Header("Quest Item")]
+    [Header("Diálogos baseados no estado")]
+    [SerializeField] private DialogueData dialogueNotStarted;       // Primeira conversa
+    [SerializeField] private DialogueData dialogueNoItem;           // Jogador não tem o item ainda
+    [SerializeField] private DialogueData dialogueCompleted;        // Jogador entrega o item (primeira finalização)
+    [SerializeField] private DialogueData dialogueCompletedNoItem;  // Conversa depois de já ter finalizado
+
+    private enum QuestState { NotStarted, Started, CompletedNoItem, Completed }
+    private QuestState state = QuestState.NotStarted;
+
+    [Header("Item Necessário para Completar")]
     [SerializeField] private ItemData requiredItem;
-    
-    [Header("Dialogues")]
-    [TextArea(3, 10)] // Faz a caixa de texto no Inspector ser maior
-    [SerializeField] private string dialogue_FirstTime;
-    [TextArea(3, 10)]
-    [SerializeField] private string dialogue_QuestInProgress;
-    [TextArea(3, 10)]
-    [SerializeField] private string dialogue_QuestComplete;
-    [TextArea(3, 10)]
-    [SerializeField] private string dialogue_AfterQuest;
 
-    // --- Implementação do Contrato IInteractable ---
+    [Header("Recompensa (Opcional)")]
+    [SerializeField] private ItemData rewardItem;
 
-    public string GetPromptMessage()
-    {
-        // A mensagem pode mudar dependendo do estado
-        if (currentState == QuestState.Completed)
-        {
-            return "Falar com o Aldeão";
-        }
-        return "Falar com o Aldeão da Quest";
+    void Start() {
+        if (dialogueSystem == null)
+            Debug.LogError("NPCQuest: DialogueSystem não atribuído!");
+        if (requiredItem == null)
+            Debug.LogWarning("NPCQuest: RequiredItem não atribuído!");
     }
 
-    public void Interact(Inventory inventory)
-    {
-        // A lógica principal acontece aqui, baseada no estado atual da quest
-        switch (currentState)
-        {
+    public string GetPromptMessage() {
+        switch (state) {
             case QuestState.NotStarted:
-                // Primeira vez falando com o NPC
-                Debug.Log("NPC: " + dialogue_FirstTime);
-                currentState = QuestState.Started; // A quest começa agora!
+                return "Falar";
+            case QuestState.Started:
+                return "Entregar Item";
+            case QuestState.CompletedNoItem:
+            case QuestState.Completed:
+                return "Conversar";
+            default:
+                return "Interagir";
+        }
+    }
+
+    public void Interact(Inventory inventory) {
+        if (dialogueSystem == null) {
+            Debug.LogError("NPCQuest: DialogueSystem não configurado!");
+            return;
+        }
+
+        // Evita reiniciar o diálogo se já está rolando
+        if (dialogueSystem.IsActive()) return;
+
+        switch (state) {
+
+            case QuestState.NotStarted:
+                StartQuest();
                 break;
 
             case QuestState.Started:
-                // A quest está ativa. Verificamos se o player tem o item.
-                if (inventory.HasItem(requiredItem))
-                {
-                    // Player tem o item!
-                    Debug.Log("NPC: " + dialogue_QuestComplete);
-                    inventory.RemoveItem(requiredItem); // Remove o item do inventário
-                    currentState = QuestState.Completed; // A quest está completa!
-                }
-                else
-                {
-                    // Player ainda não tem o item.
-                    Debug.Log("NPC: " + dialogue_QuestInProgress);
-                }
+                CheckQuestCompletion(inventory);
                 break;
 
             case QuestState.Completed:
-                // A quest já foi completada.
-                Debug.Log("NPC: " + dialogue_AfterQuest);
+                ShowCompletionDialogue();
+               
+                break;
+
+            case QuestState.CompletedNoItem:
+                ShowPostCompletionDialogue();
                 break;
         }
+    }
+
+    void StartQuest() {
+        if (dialogueNotStarted != null) {
+            dialogueSystem.SetDialogue(dialogueNotStarted);
+            dialogueSystem.StartDialogue();
+            state = QuestState.Started;
+        } else {
+            Debug.LogWarning("NPCQuest: dialogueNotStarted não atribuído!");
+        }
+    }
+
+    void CheckQuestCompletion(Inventory inventory) {
+        if (inventory == null) {
+            Debug.LogError("NPCQuest: Inventory está null!");
+            return;
+        }
+
+        if (requiredItem == null) {
+            Debug.LogError("NPCQuest: RequiredItem não configurado!");
+            return;
+        }
+
+        if (inventory.HasItem(requiredItem) && state == QuestState.Started) {
+            // O jogador tem o item → entrega
+            inventory.RemoveItem(requiredItem);
+            state = QuestState.CompletedNoItem;
+
+            if (rewardItem != null)
+                inventory.AddItem(rewardItem);
+
+            // Mostra o diálogo de finalização pela primeira vez
+            dialogueSystem.SetDialogue(dialogueCompleted);
+            dialogueSystem.StartDialogue();
+
+          
+        } 
+        else  {
+            // Jogador ainda não encontrou o item
+            dialogueSystem.SetDialogue(dialogueNoItem);
+            dialogueSystem.StartDialogue();
+        }
+    }
+
+    void ShowCompletionDialogue() {
+        dialogueSystem.SetDialogue(dialogueCompleted);
+        dialogueSystem.StartDialogue();
+        
+    }
+
+    void ShowPostCompletionDialogue() {
+        if (dialogueCompletedNoItem != null) {
+            dialogueSystem.SetDialogue(dialogueCompletedNoItem);
+            dialogueSystem.StartDialogue();
+        }
+    }
+
+    // Método útil para testar
+    [ContextMenu("Reset Quest")]
+    public void ResetQuest() {
+        state = QuestState.NotStarted;
     }
 }
