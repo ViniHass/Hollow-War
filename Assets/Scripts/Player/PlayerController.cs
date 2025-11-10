@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject hitboxSW;
     [SerializeField] private GameObject hitboxSE;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip attackSound; // Arraste seu MP3 aqui no Inspector
+
     // Eventos
     public static event Action<Vector2> OnMove;
     public static event Action<Vector2> OnAttack;
@@ -70,6 +73,12 @@ public class PlayerController : MonoBehaviour
         isAttacking = true;
         OnAttack?.Invoke(lastDirection); // Dispara a animação
 
+        // Toca o som de ataque através do AudioManager
+        if (AudioManager.Instance != null && attackSound != null)
+        {
+            AudioManager.Instance.PlaySound(attackSound, transform.position);
+        }
+
         // 1. Espera o delay inicial
         yield return new WaitForSeconds(stats.attackHitboxDelay);
 
@@ -85,7 +94,7 @@ public class PlayerController : MonoBehaviour
                 activeHitbox.damage = stats.attackDamage;
             }
         }
-        
+
         // 3. Espera o tempo em que a hitbox ficará ativa
         yield return new WaitForSeconds(stats.attackHitboxActiveTime);
 
@@ -97,11 +106,11 @@ public class PlayerController : MonoBehaviour
 
         // 5. Espera o restante da animação para destravar o movimento
         float remainingTime = stats.attackAnimationDuration - stats.attackHitboxDelay - stats.attackHitboxActiveTime;
-        if(remainingTime > 0)
+        if (remainingTime > 0)
         {
             yield return new WaitForSeconds(remainingTime);
         }
-        
+
         isAttacking = false;
     }
 
