@@ -22,4 +22,4 @@ MonoBehaviour:
   attackHitboxActiveTime: 0.3
   knockbackForce: 5
   knockbackDuration: 0.2
-  flashDuration: 0.1
+  flashDuration: 0.3

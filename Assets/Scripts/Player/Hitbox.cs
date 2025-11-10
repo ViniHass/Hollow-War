@@ -2,25 +2,33 @@ using UnityEngine;
 
 public class Hitbox : MonoBehaviour
 {
-    public int damage; // O PlayerController continua nos dizendo quanto dano causar
+    public int damage; 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Verifica se colidiu com o Hurtbox de um inimigo
+        // Verifica se colidiu com um Hurtbox com a tag "Enemy"
         if (other.CompareTag("Enemy"))
         {
-            // O script de vida do inimigo está no objeto pai do Hurtbox
+            // 1. Tenta achar o script de vida de um inimigo normal
             EnemyHealth enemyHealth = other.GetComponentInParent<EnemyHealth>();
             
             if (enemyHealth != null)
             {
-                // 1. Calcula a direção do knockback
-                // A direção é um vetor que aponta do centro da hitbox (próximo ao player)
-                // para o centro do Hurtbox do inimigo.
+                // Inimigo normal encontrado!
                 Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
-
-                // 2. Chama a função TakeDamage do inimigo, passando o dano E a direção do knockback
                 enemyHealth.TakeDamage(damage, knockbackDirection);
+            }
+            else
+            {
+                // 2. Se falhar, tenta achar o script de vida do BOSS
+                SkeletonKing_Health bossHealth = other.GetComponentInParent<SkeletonKing_Health>();
+                if (bossHealth != null)
+                {
+                    // Boss encontrado!
+                    // O boss não usa knockback, mas a função precisa dele
+                    Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
+                    bossHealth.TakeDamage(damage, knockbackDirection);
+                }
             }
         }
     }
