@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   talkScript:
   - name: Zumbi
-    text: Por favor, me ajude, traga a semente
+    text: Por favor, me ajude, traga a semente, eu te imploro
   - name: Goblin
     text: "Voc\xEA \xE9 chat\xE3o, at\xE9 que n\xE3o iria fazer falta"
