@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterStats
   maxHealth: 3
   moveSpeed: 2
-  attackDamage: 2
+  attackDamage: 4
   detectionRadius: 3
   attackRadius: 1.5
   attackCooldown: 2

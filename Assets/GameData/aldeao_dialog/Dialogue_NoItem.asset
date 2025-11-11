@@ -15,10 +15,10 @@ MonoBehaviour:
   talkScript:
   - name: "Alde\xE3o"
     text: "E ai, estou esperando, meus descendentes est\xE3o morrendo"
-  - name: Player
+  - name: Goblin
     text: "Ta achando que \xE9 pastel frito? Eu tava tirando uma sonequinha para
       recarregar as energias"
   - name: "Alde\xE3o"
     text: "Voc\xEA \xE9 a nossa \xFAltima esperan\xE7a, por favor nos ajude"
-  - name: Player
+  - name: Goblin
     text: "J\xE1 que voc\xEA insiste, vou ver se encontro essa tal \xE1rvore"

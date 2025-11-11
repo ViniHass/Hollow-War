@@ -17,5 +17,14 @@ MonoBehaviour:
     text: Toma ai apressadinho, vai fazer seu remedio
   - name: "Alde\xE3o"
     text: Sou extremamente grato, obrigado pela ajuda
+  - name: "Alde\xE3o"
+    text: "Ouvi falar que um de nossos ancestrais esta precisando de voc\xEA, v\xE1
+      ao cemit\xE9rio para ajuda-lo"
   - name: Goblin
-    text: "Depois voc\xEA paga a coca"
+    text: "Mais essa ? Voc\xEAs se metem em confus\xE3o e eu que tenho que resolver
+      tudo"
+  - name: Goblin
+    text: "Mais essa ? Voc\xEAs se metem em confus\xE3o e eu que tenho que resolver
+      tudo"
+  - name: Goblin
+    text: "Mas fazer o que n\xE9? Estou a caminho"

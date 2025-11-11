@@ -19,7 +19,7 @@ MonoBehaviour:
   - name: Goblin
     text: Claro que posso, me informe onde encontra-la
   - name: "Alde\xE3o"
-    text: "Ela est\xE1 localizada no norte da ilha, mas cuidado com os ratos, eles
+    text: "Ela est\xE1 localizada no centro da ilha, mas cuidado com os ratos, eles
       s\xE3o assustadores"
   - name: Goblin
     text: Deixa com o pai!
