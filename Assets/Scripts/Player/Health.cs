@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -26,6 +27,12 @@ public class Health : MonoBehaviour
         Debug.Log(gameObject.name + " morreu.");
         // Por enquanto, vamos apenas desativar o objeto.
         // Mais tarde, você pode adicionar animações de morte, efeitos, etc.
+
         gameObject.SetActive(false);
+
+        SceneManager.LoadScene("Overworld");
+
+        // Carrega a segunda cena sem descarregar a primeira
+        SceneManager.LoadScene("Pradaria", LoadSceneMode.Additive);
     }
 }
