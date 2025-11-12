@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject hitboxSW;
     [SerializeField] private GameObject hitboxSE;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip attackSound; // Arraste seu MP3 aqui
+
     // Eventos
     public static event Action<Vector2> OnMove;
     public static event Action<Vector2> OnAttack;
@@ -20,9 +23,9 @@ public class PlayerController : MonoBehaviour
     // Componentes e Variáveis
     private Rigidbody2D rb;
     private Vector2 movementInput;
-    private Vector2 lastDirection = new Vector2(1, 1); // Começa olhando para NE por padrão
+    private Vector2 lastDirection = new Vector2(1, 1);
     private bool isAttacking = false;
-    private Hitbox activeHitbox; // Para guardar a referência da hitbox ativa
+    private Hitbox activeHitbox;
 
     void Awake()
     {
@@ -68,7 +71,13 @@ public class PlayerController : MonoBehaviour
     private IEnumerator AttackCoroutine()
     {
         isAttacking = true;
-        OnAttack?.Invoke(lastDirection); // Dispara a animação
+        OnAttack?.Invoke(lastDirection);
+
+        // Toca o som de ataque (ajuste o volume aqui: 1f = 100%, 2f = 200%)
+        if (AudioManager.Instance != null && attackSound != null)
+        {
+            AudioManager.Instance.PlaySound(attackSound, transform.position, 10f);
+        }
 
         // 1. Espera o delay inicial
         yield return new WaitForSeconds(stats.attackHitboxDelay);
@@ -78,14 +87,13 @@ public class PlayerController : MonoBehaviour
         if (hitboxToActivate != null)
         {
             hitboxToActivate.SetActive(true);
-            // Informa à hitbox quanto dano ela deve causar
             activeHitbox = hitboxToActivate.GetComponent<Hitbox>();
             if (activeHitbox != null)
             {
                 activeHitbox.damage = stats.attackDamage;
             }
         }
-        
+
         // 3. Espera o tempo em que a hitbox ficará ativa
         yield return new WaitForSeconds(stats.attackHitboxActiveTime);
 
@@ -97,28 +105,27 @@ public class PlayerController : MonoBehaviour
 
         // 5. Espera o restante da animação para destravar o movimento
         float remainingTime = stats.attackAnimationDuration - stats.attackHitboxDelay - stats.attackHitboxActiveTime;
-        if(remainingTime > 0)
+        if (remainingTime > 0)
         {
             yield return new WaitForSeconds(remainingTime);
         }
-        
+
         isAttacking = false;
     }
 
     private GameObject GetHitboxForDirection(Vector2 direction)
     {
-        // Arredondamos a direção para simplificar a lógica (ex: (0.7, 0.7) vira (1,1))
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        if (angle > 22.5f && angle <= 67.5f) return hitboxNE; // NE
-        if (angle > 67.5f && angle <= 112.5f) return hitboxNE; // N (mapeado para NE)
-        if (angle > 112.5f && angle <= 157.5f) return hitboxNW; // NW
-        if (angle > 157.5f || angle <= -157.5f) return hitboxNW; // W (mapeado para NW)
-        if (angle > -157.5f && angle <= -112.5f) return hitboxSW; // SW
-        if (angle > -112.5f && angle <= -67.5f) return hitboxSW; // S (mapeado para SW)
-        if (angle > -67.5f && angle <= -22.5f) return hitboxSE; // SE
-        if (angle > -22.5f && angle <= 22.5f) return hitboxSE; // E (mapeado para SE)
+        if (angle > 22.5f && angle <= 67.5f) return hitboxNE;
+        if (angle > 67.5f && angle <= 112.5f) return hitboxNE;
+        if (angle > 112.5f && angle <= 157.5f) return hitboxNW;
+        if (angle > 157.5f || angle <= -157.5f) return hitboxNW;
+        if (angle > -157.5f && angle <= -112.5f) return hitboxSW;
+        if (angle > -112.5f && angle <= -67.5f) return hitboxSW;
+        if (angle > -67.5f && angle <= -22.5f) return hitboxSE;
+        if (angle > -22.5f && angle <= 22.5f) return hitboxSE;
 
-        return hitboxNE; // Retorno padrão
+        return hitboxNE;
     }
 }
