@@ -14,7 +14,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject hitboxSE;
 
     [Header("Audio")]
-    [SerializeField] private AudioClip attackSound; // Arraste seu MP3 aqui
+    [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip footstepLoop; // Áudio de 2 segundos em loop
+    [Range(0f, 2f)]
+    [SerializeField] private float footstepVolume = 0.5f;
 
     // Eventos
     public static event Action<Vector2> OnMove;
@@ -26,10 +29,19 @@ public class PlayerController : MonoBehaviour
     private Vector2 lastDirection = new Vector2(1, 1);
     private bool isAttacking = false;
     private Hitbox activeHitbox;
+    private AudioSource footstepAudioSource; // AudioSource dedicado para passos
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        // Cria um AudioSource dedicado para os passos
+        footstepAudioSource = gameObject.AddComponent<AudioSource>();
+        footstepAudioSource.clip = footstepLoop;
+        footstepAudioSource.loop = true; // Loop ativado
+        footstepAudioSource.playOnAwake = false;
+        footstepAudioSource.volume = footstepVolume;
+
         // Garante que todas as hitboxes começam desativadas
         hitboxNE.SetActive(false);
         hitboxNW.SetActive(false);
@@ -43,6 +55,13 @@ public class PlayerController : MonoBehaviour
         {
             movementInput = Vector2.zero;
             OnMove?.Invoke(movementInput);
+
+            // Para o som de passos ao atacar
+            if (footstepAudioSource.isPlaying)
+            {
+                footstepAudioSource.Stop();
+            }
+
             return;
         }
 
@@ -53,6 +72,21 @@ public class PlayerController : MonoBehaviour
         if (movementInput.magnitude > 0)
         {
             lastDirection = movementInput;
+
+            // Inicia o loop de passos se não estiver tocando
+            if (!footstepAudioSource.isPlaying)
+            {
+                footstepAudioSource.volume = footstepVolume;
+                footstepAudioSource.Play();
+            }
+        }
+        else
+        {
+            // Para o loop quando o player para de andar
+            if (footstepAudioSource.isPlaying)
+            {
+                footstepAudioSource.Stop();
+            }
         }
 
         OnMove?.Invoke(movementInput);
@@ -73,10 +107,10 @@ public class PlayerController : MonoBehaviour
         isAttacking = true;
         OnAttack?.Invoke(lastDirection);
 
-        // Toca o som de ataque (ajuste o volume aqui: 1f = 100%, 2f = 200%)
+        // Toca o som de ataque
         if (AudioManager.Instance != null && attackSound != null)
         {
-            AudioManager.Instance.PlaySound(attackSound, transform.position, 10f);
+            AudioManager.Instance.PlaySound(attackSound, transform.position, 1f);
         }
 
         // 1. Espera o delay inicial
