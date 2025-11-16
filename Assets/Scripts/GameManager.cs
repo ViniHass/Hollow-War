@@ -227,8 +227,8 @@ public class GameManager : MonoBehaviour
         // Limpa os itens coletados ao reiniciar o jogo
         collectedItems.Clear();
 
-        SceneManager.LoadScene(nomeCenaRespawn);
-        SceneManager.LoadScene("Pradaria", LoadSceneMode.Additive);
+        SceneManager.LoadScene("abertura");
+        //SceneManager.LoadScene("Pradaria", LoadSceneMode.Additive);
         
         if (painelGameOver != null)
         {
