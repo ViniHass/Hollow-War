@@ -28,7 +28,7 @@ public class PlayerInteraction : MonoBehaviour
         if (show)
         {
             // Duração alta para manter o prompt na tela (999s)
-            UIManager.Instance.ShowGlobalMessage(message, 999f); 
+            UIManager.Instance.ShowGlobalMessage(message, 5.0f); 
         }
        
     }

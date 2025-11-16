@@ -13,4 +13,11 @@ MonoBehaviour:
   m_Name: DefaultPlayerStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   moveSpeed: 5
+  maxHealth: 20
+  attackDamage: 1
+  attackHitboxDelay: 0.1
+  attackHitboxActiveTime: 0.15
   attackAnimationDuration: 0.36
+  decoyDuration: 5
+  decoyCooldown: 10
+  decoyDestructionAnimTime: 0.4

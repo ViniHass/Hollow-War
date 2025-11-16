@@ -24,7 +24,7 @@ public class ItemPickup : MonoBehaviour, IInteractable
     {
         if (itemToGive != null)
         {
-            UIManager.Instance.ShowGlobalMessage("Pessione E para pegar item");
+            UIManager.Instance.ShowGlobalMessage("Pessione E para pegar item", 3.0f);
         }
         return "Apertar 'E' para pegar item";
     }

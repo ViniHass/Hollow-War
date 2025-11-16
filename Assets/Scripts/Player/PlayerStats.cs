@@ -17,4 +17,13 @@ public class PlayerStats : ScriptableObject
     public float attackHitboxActiveTime = 0.15f;
     [Tooltip("A duração total da animação de ataque. Deve ser maior que a soma do delay e do tempo ativo.")]
     public float attackAnimationDuration = 0.36f;
+
+
+    [Header("Decoy Skill")]
+    [Tooltip("Por quantos segundos o decoy permanece ativo.")]
+    public float decoyDuration = 5f;
+    [Tooltip("O tempo em segundos até que a skill possa ser usada novamente.")]
+    public float decoyCooldown = 90f;
+    [Tooltip("Duração da animação de destruição do decoy (em segundos).")]
+    public float decoyDestructionAnimTime = 1f;
 }

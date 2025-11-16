@@ -8736,6 +8736,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 102a4f5c4e883f346a4864db7000d3ec, type: 3}
     - target: {fileID: 679495262275536558, guid: 461511ff58906ff4e9a69c69e63dc48a, type: 3}
+      propertyPath: decoyPrefab
+      value: 
+      objectReference: {fileID: 4112972108430085811, guid: 2cff2e0d74ab79a41a7412a40d2fd300, type: 3}
+    - target: {fileID: 679495262275536558, guid: 461511ff58906ff4e9a69c69e63dc48a, type: 3}
       propertyPath: footstepLoop
       value: 
       objectReference: {fileID: 8300000, guid: 8b757f6742baa0f4d9d2b033915de607, type: 3}
@@ -8745,11 +8749,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3667139405868857250, guid: 461511ff58906ff4e9a69c69e63dc48a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.83
+      value: 107.82
       objectReference: {fileID: 0}
     - target: {fileID: 3667139405868857250, guid: 461511ff58906ff4e9a69c69e63dc48a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.33
+      value: -25.32
       objectReference: {fileID: 0}
     - target: {fileID: 3667139405868857250, guid: 461511ff58906ff4e9a69c69e63dc48a, type: 3}
       propertyPath: m_LocalPosition.z

@@ -13,11 +13,12 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private GameObject hitboxW;
     
     // Componentes e Variáveis
-    private Transform player;
+    private Transform player; // Apenas uma referência de segurança
+    private Transform currentTarget; // O ALVO ATUAL (Decoy ou Player)
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    private Vector2 lastDirection = Vector2.down; // Começa olhando para Sul
+    private Vector2 lastDirection = Vector2.down; 
     private Color originalColor;
     private bool canAttack = true;
 
@@ -31,65 +32,70 @@ public class EnemyAI : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
         
-        // Configura o raio da zona de detecção
         transform.Find("DetectionZone").GetComponent<CircleCollider2D>().radius = stats.detectionRadius;
     }
 
     void Start()
     {
-        // Encontra o player pela tag do seu Hurtbox
         GameObject playerHurtbox = GameObject.FindGameObjectWithTag("Player");
         if(playerHurtbox != null)
         {
-            player = playerHurtbox.transform.parent; // Pega o objeto pai (o Player em si)
+            player = playerHurtbox.transform.parent;
         }
         currentState = State.Idle;
     }
 
     void Update()
     {
-        if (player == null || currentState == State.Attacking || currentState == State.Feedback)
+        // Se não tiver alvo, ou se estiver atacando/sofrendo dano, fica parado
+        if (currentTarget == null || currentState == State.Attacking || currentState == State.Feedback)
         {
             animator.SetBool("isMoving", false);
+            rb.linearVelocity = Vector2.zero;
             return;
         }
 
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        // Se tem um alvo, o estado é Chasing
+        currentState = State.Chasing;
 
-        if (currentState == State.Chasing)
+        float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
+
+        // Se está perto o suficiente, ataca
+        if (distanceToTarget <= stats.attackRadius && canAttack)
         {
-            if (distanceToPlayer <= stats.attackRadius && canAttack)
-            {
-                StartCoroutine(Attack());
-            }
-            else
-            {
-                ChasePlayer();
-            }
+            StartCoroutine(Attack());
+        }
+        // Se está longe, persegue
+        else if (distanceToTarget > stats.attackRadius)
+        {
+            ChaseTarget();
         }
     }
 
-    public void OnPlayerEnterDetectionZone()
+    // --- MÉTODOS DE CONTROLE (Chamados pela DetectionZone) ---
+
+    // DetectionZone chama isso quando um alvo (com prioridade) entra
+    public void SetTarget(Transform target)
     {
-        if (currentState == State.Idle)
-        {
-            currentState = State.Chasing;
-        }
+        currentTarget = target;
+        currentState = State.Chasing;
     }
 
-    public void OnPlayerExitDetectionZone()
+    // DetectionZone chama isso quando todos os alvos saem
+    public void ClearTarget()
     {
-        if (currentState == State.Chasing)
-        {
-            currentState = State.Idle;
-            rb.linearVelocity = Vector2.zero;
-            animator.SetBool("isMoving", false);
-        }
+        currentTarget = null;
+        currentState = State.Idle;
     }
+    
+    // --- O RESTO DOS SEUS MÉTODOS (Sem alterações) ---
 
-    private void ChasePlayer()
+    // REMOVIDOS: OnPlayerEnterDetectionZone() e OnPlayerExitDetectionZone()
+    // A DetectionZone agora cuida de tudo e chama SetTarget/ClearTarget
+
+    private void ChaseTarget()
     {
-        Vector2 direction = (player.position - transform.position).normalized;
+        Vector2 direction = (currentTarget.position - transform.position).normalized;
         rb.linearVelocity = direction * stats.moveSpeed;
         UpdateAnimation(direction);
     }
@@ -100,7 +106,7 @@ public class EnemyAI : MonoBehaviour
         canAttack = false;
         rb.linearVelocity = Vector2.zero;
         
-        Vector2 direction = (player.position - transform.position).normalized;
+        Vector2 direction = (currentTarget.position - transform.position).normalized;
         UpdateAnimation(direction);
         animator.SetTrigger("Attack");
 
@@ -123,7 +129,6 @@ public class EnemyAI : MonoBehaviour
     {
         animator.SetBool("isMoving", direction.magnitude > 0);
         lastDirection = direction;
-        // Para uma Blend Tree cardinal, é melhor passar valores "puros"
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
             animator.SetFloat("moveX", direction.x > 0 ? 1 : -1);
@@ -153,8 +158,12 @@ public class EnemyAI : MonoBehaviour
 
         yield return new WaitForSeconds(stats.knockbackDuration - stats.flashDuration);
 
-        rb.linearVelocity = Vector2.zero; // Para o knockback abruptamente
-        currentState = State.Chasing;
+        rb.linearVelocity = Vector2.zero; 
+        
+        if(currentTarget != null)
+            currentState = State.Chasing;
+        else
+            currentState = State.Idle;
     }
 
     private GameObject GetHitboxForDirection(Vector2 direction)

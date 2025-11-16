@@ -5,7 +5,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     [Header("Configuration")]
-    [SerializeField] private PlayerStats stats;
+    [SerializeField] private PlayerStats stats; // Seu gamedata
 
     [Header("Hitbox References")]
     [SerializeField] private GameObject hitboxNE;
@@ -15,9 +15,18 @@ public class PlayerController : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private AudioClip attackSound;
-    [SerializeField] private AudioClip footstepLoop; // Áudio de 2 segundos em loop
+    [SerializeField] private AudioClip footstepLoop; 
     [Range(0f, 2f)]
     [SerializeField] private float footstepVolume = 0.5f;
+
+    // --- NOVAS LINHAS ADICIONADAS ---
+    [Header("Skill: Decoy")]
+    [SerializeField] private GameObject decoyPrefab; // Arraste seu prefab 'Decoy'
+    [SerializeField] private float decoySpawnOffset = 1.0f;
+    
+    private float decoyCooldownTimer = 0f;
+    private bool isDecoyOnCooldown = false;
+    // --- FIM DAS NOVAS LINHAS ---
 
     // Eventos
     public static event Action<Vector2> OnMove;
@@ -29,20 +38,18 @@ public class PlayerController : MonoBehaviour
     private Vector2 lastDirection = new Vector2(1, 1);
     private bool isAttacking = false;
     private Hitbox activeHitbox;
-    private AudioSource footstepAudioSource; // AudioSource dedicado para passos
+    private AudioSource footstepAudioSource; 
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        // Cria um AudioSource dedicado para os passos
         footstepAudioSource = gameObject.AddComponent<AudioSource>();
         footstepAudioSource.clip = footstepLoop;
-        footstepAudioSource.loop = true; // Loop ativado
+        footstepAudioSource.loop = true; 
         footstepAudioSource.playOnAwake = false;
         footstepAudioSource.volume = footstepVolume;
 
-        // Garante que todas as hitboxes começam desativadas
         hitboxNE.SetActive(false);
         hitboxNW.SetActive(false);
         hitboxSW.SetActive(false);
@@ -51,17 +58,25 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // --- NOVO: Gerenciamento do Cooldown ---
+        if (isDecoyOnCooldown)
+        {
+            decoyCooldownTimer -= Time.deltaTime;
+            if (decoyCooldownTimer <= 0)
+            {
+                isDecoyOnCooldown = false;
+                Debug.Log("Skill Decoy pronta!");
+            }
+        }
+
         if (isAttacking)
         {
             movementInput = Vector2.zero;
             OnMove?.Invoke(movementInput);
-
-            // Para o som de passos ao atacar
             if (footstepAudioSource.isPlaying)
             {
                 footstepAudioSource.Stop();
             }
-
             return;
         }
 
@@ -72,8 +87,6 @@ public class PlayerController : MonoBehaviour
         if (movementInput.magnitude > 0)
         {
             lastDirection = movementInput;
-
-            // Inicia o loop de passos se não estiver tocando
             if (!footstepAudioSource.isPlaying)
             {
                 footstepAudioSource.volume = footstepVolume;
@@ -82,7 +95,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            // Para o loop quando o player para de andar
             if (footstepAudioSource.isPlaying)
             {
                 footstepAudioSource.Stop();
@@ -91,9 +103,16 @@ public class PlayerController : MonoBehaviour
 
         OnMove?.Invoke(movementInput);
 
+        // Input de Ataque
         if (Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(AttackCoroutine());
+        }
+
+        // --- NOVO: Input da Skill Decoy (Tecla '1') ---
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !isAttacking && !isDecoyOnCooldown)
+        {
+            UseDecoy();
         }
     }
 
@@ -107,16 +126,12 @@ public class PlayerController : MonoBehaviour
         isAttacking = true;
         OnAttack?.Invoke(lastDirection);
 
-        // Toca o som de ataque
         if (AudioManager.Instance != null && attackSound != null)
         {
             AudioManager.Instance.PlaySound(attackSound, transform.position, 1f);
         }
 
-        // 1. Espera o delay inicial
         yield return new WaitForSeconds(stats.attackHitboxDelay);
-
-        // 2. Determina qual hitbox ativar com base na última direção
         GameObject hitboxToActivate = GetHitboxForDirection(lastDirection);
         if (hitboxToActivate != null)
         {
@@ -127,23 +142,16 @@ public class PlayerController : MonoBehaviour
                 activeHitbox.damage = stats.attackDamage;
             }
         }
-
-        // 3. Espera o tempo em que a hitbox ficará ativa
         yield return new WaitForSeconds(stats.attackHitboxActiveTime);
-
-        // 4. Desativa a hitbox
         if (hitboxToActivate != null)
         {
             hitboxToActivate.SetActive(false);
         }
-
-        // 5. Espera o restante da animação para destravar o movimento
         float remainingTime = stats.attackAnimationDuration - stats.attackHitboxDelay - stats.attackHitboxActiveTime;
         if (remainingTime > 0)
         {
             yield return new WaitForSeconds(remainingTime);
         }
-
         isAttacking = false;
     }
 
@@ -161,5 +169,35 @@ public class PlayerController : MonoBehaviour
         if (angle > -22.5f && angle <= 22.5f) return hitboxSE;
 
         return hitboxNE;
+    }
+
+    // --- NOVO MÉTODO PARA USAR O DECOY ---
+    private void UseDecoy()
+    {
+        isDecoyOnCooldown = true;
+        decoyCooldownTimer = stats.decoyCooldown; // Lê do gamedata
+        Debug.Log("Usou Decoy! Cooldown de " + stats.decoyCooldown + "s iniciado.");
+
+        // 1. Determina a direção (Leste ou Oeste)
+        bool facingRight = lastDirection.x >= 0;
+
+        // 2. Calcula a posição do spawn
+        Vector2 spawnDirection = facingRight ? Vector2.right : Vector2.left;
+        Vector3 spawnPosition = transform.position + (Vector3)spawnDirection * decoySpawnOffset;
+
+        // 3. Instancia (cria) o Decoy do prefab
+        GameObject decoyInstance = Instantiate(decoyPrefab, spawnPosition, Quaternion.identity);
+
+        // 4. "Liga" o Decoy, passando os stats E a direção
+        Decoy decoyScript = decoyInstance.GetComponent<Decoy>();
+        if (decoyScript != null)
+        {
+            // Passa os valores lidos do gamedata e a direção
+            decoyScript.Initialize(stats.decoyDuration, stats.decoyDestructionAnimTime, facingRight);
+        }
+        else
+        {
+            Debug.LogError("O prefab 'Decoy' está sem o script Decoy.cs!");
+        }
     }
 }
