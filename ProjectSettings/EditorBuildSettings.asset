@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Abertura.unity
     guid: 0c4f5d4f326da144eb803a8b483de83e
   - enabled: 1
-    path: Assets/Scenes/Overworld.unity
+    path: Assets/Scenes/Biomas/Overworld.unity
     guid: d15f79330f8b65c438488a3fd58a31d0
   - enabled: 1
     path: Assets/Scenes/Pradaria.unity
