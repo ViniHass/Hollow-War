@@ -9,6 +9,20 @@ public class BridgeRepair : MonoBehaviour, IInteractable
 
     private bool isRepaired = false;
 
+    private void ShowMessage(string message)
+    {
+        // Método auxiliar para chamar o UIManager
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.ShowGlobalMessage(message);
+        }
+        else
+        {
+            // Fallback para debug caso o UIManager não esteja na cena
+            Debug.Log(message);
+        }
+    }
+
     public void Interact(Inventory inventory)
     {
         if (isRepaired) return; // Já foi reparada, não faz nada
@@ -21,13 +35,20 @@ public class BridgeRepair : MonoBehaviour, IInteractable
             // Repara a ponte
             isRepaired = true;
             GetComponent<SpriteRenderer>().sprite = repairedSprite;
-            wallCollider.enabled = false;
             
-            Debug.Log("A ponte foi consertada!");
+            // Desativa a barreira de colisão
+            if (wallCollider != null)
+            {
+                wallCollider.enabled = false;
+            }
+            
+            // 🌟 Substituição do Log pela Caixa de Mensagem
+            ShowMessage("A ponte foi consertada!");
         }
         else
         {
-            Debug.Log("Você precisa de '" + requiredItem.itemName + "' para consertar a ponte.");
+            // 🌟 Substituição do Log pela Caixa de Mensagem
+            ShowMessage("Você precisa de '" + requiredItem.itemName + "' para consertar a ponte.");
         }
     }
 

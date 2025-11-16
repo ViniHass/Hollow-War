@@ -1,8 +1,4 @@
-using UnityEditorInternal;
 using UnityEngine;
-
-
-
 
 public class NPCQuest : MonoBehaviour, IInteractable 
 {
@@ -16,7 +12,7 @@ public class NPCQuest : MonoBehaviour, IInteractable
     [SerializeField] private DialogueData dialogueCompletedNoItem;  
 
     private enum QuestState { NotStarted, Started, CompletedNoItem, Completed }
-    [SerializeField] private QuestState state = QuestState.NotStarted; // Serializado para persistir
+    [SerializeField] private QuestState state = QuestState.NotStarted; 
 
     [Header("Item Necessário para Completar")]
     [SerializeField] private ItemData requiredItem;
@@ -30,13 +26,11 @@ public class NPCQuest : MonoBehaviour, IInteractable
 
     void OnEnable() 
     {
-        // Assina o evento de Game Over
         GameManager.OnGameOver += ResetQuestOnGameOver;
     }
 
     void OnDisable() 
     {
-        // Desassina o evento para evitar erros
         GameManager.OnGameOver -= ResetQuestOnGameOver;
     }
 
@@ -46,20 +40,27 @@ public class NPCQuest : MonoBehaviour, IInteractable
         {
             npcId = gameObject.name;
         }
-        // Validações...
 
-        // Carrega o estado salvo da quest
         LoadQuestStateFromGameManager();
     }
     
-    /// <summary>
-    /// Reseta o estado da quest para NotStarted apenas no Game Over.
-    /// Chamado pelo evento GameManager.OnGameOver.
-    /// </summary>
+    // Método auxiliar para usar o UIManager
+    private void ShowGlobalQuestMessage(string message)
+    {
+        if (UIManager.Instance != null)
+        {
+            // Mensagens de quest com 3 segundos de duração.
+            UIManager.Instance.ShowGlobalMessage(message, 3.0f); 
+        }
+        else
+        {
+            Debug.Log(message);
+        }
+    }
+
     void ResetQuestOnGameOver() 
     {
         state = QuestState.NotStarted;
-        // Salva o reset no GameManager
         SaveQuestStateToGameManager();
         Debug.Log($"Quest do NPC {gameObject.name} resetada devido ao Game Over.");
     }
@@ -88,7 +89,6 @@ public class NPCQuest : MonoBehaviour, IInteractable
 
     public string GetPromptMessage() 
     {
-        // ... (lógica de GetPromptMessage)
         switch (state) 
         {
             case QuestState.NotStarted: return "Falar";
@@ -101,7 +101,6 @@ public class NPCQuest : MonoBehaviour, IInteractable
 
     public void Interact(Inventory inventory) 
     {
-        // ... (lógica de Interact)
         if (dialogueSystem == null || dialogueSystem.IsActive()) return;
 
         switch (state) 
@@ -121,6 +120,9 @@ public class NPCQuest : MonoBehaviour, IInteractable
             dialogueSystem.StartDialogue();
             state = QuestState.Started;
             SaveQuestStateToGameManager();
+            
+            // 🌟 INSTRUÇÃO: O que fazer após iniciar a quest
+            ShowGlobalQuestMessage($"INSTRUÇÃO: Você precisa encontrar '{requiredItem.itemName}'.");
         } 
         else 
         {
@@ -130,22 +132,30 @@ public class NPCQuest : MonoBehaviour, IInteractable
 
     void CheckQuestCompletion(Inventory inventory) 
     {
-        // ... (Verificações de null)
-
         if (inventory.HasItem(requiredItem) && state == QuestState.Started) 
         {
             inventory.RemoveItem(requiredItem);
             state = QuestState.CompletedNoItem;
 
-            if (rewardItem != null) inventory.AddItem(rewardItem);
+            string rewardMessage = "";
+            if (rewardItem != null) 
+            {
+                inventory.AddItem(rewardItem);
+                rewardMessage = $" Recompensa: {rewardItem.itemName}!";
+            }
+            
+            // 🌟 INSTRUÇÃO: Feedback de sucesso
+            ShowGlobalQuestMessage($"Quest CONCLUÍDA!{rewardMessage}");
 
             dialogueSystem.SetDialogue(dialogueCompleted);
             dialogueSystem.StartDialogue();
-
             SaveQuestStateToGameManager();
         } 
         else 
         {
+            // 🌟 INSTRUÇÃO: Feedback de item faltando
+            ShowGlobalQuestMessage($"INSTRUÇÃO: Eu ainda estou esperando pelo '{requiredItem.itemName}'.");
+            
             dialogueSystem.SetDialogue(dialogueNoItem);
             dialogueSystem.StartDialogue();
         }
@@ -155,6 +165,9 @@ public class NPCQuest : MonoBehaviour, IInteractable
     {
         dialogueSystem.SetDialogue(dialogueCompleted);
         dialogueSystem.StartDialogue();
+        
+        // 🌟 INSTRUÇÃO: Quest completa
+        ShowGlobalQuestMessage("Quest concluída. Não há mais tarefas aqui.");
     }
 
     void ShowPostCompletionDialogue() 
@@ -163,6 +176,9 @@ public class NPCQuest : MonoBehaviour, IInteractable
         {
             dialogueSystem.SetDialogue(dialogueCompletedNoItem);
             dialogueSystem.StartDialogue();
+            
+            // 🌟 INSTRUÇÃO: Quest finalizada
+            ShowGlobalQuestMessage("Missão finalizada. Siga para a próxima aventura!");
         }
     }
 
@@ -171,9 +187,6 @@ public class NPCQuest : MonoBehaviour, IInteractable
     {
         state = QuestState.NotStarted;
         SaveQuestStateToGameManager();
+        Debug.Log($"Quest '{npcId}' resetada para NotStarted.");
     }
-
-    
-
 }
-
