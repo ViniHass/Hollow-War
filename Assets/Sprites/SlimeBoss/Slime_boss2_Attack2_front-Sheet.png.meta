@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: fc88ec99c99558b43bb9449996a88685
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3069976128785927733
+    second: Slime_boss2_Attack2_front-Sheet_0
+  - first:
+      213: -7183739635841861279
+    second: Slime_boss2_Attack2_front-Sheet_1
+  - first:
+      213: -6638045073747110253
+    second: Slime_boss2_Attack2_front-Sheet_2
+  - first:
+      213: 616720927449178933
+    second: Slime_boss2_Attack2_front-Sheet_3
+  - first:
+      213: 7182199864762640779
+    second: Slime_boss2_Attack2_front-Sheet_4
+  - first:
+      213: 2962537526601260205
+    second: Slime_boss2_Attack2_front-Sheet_5
+  - first:
+      213: 275964075539043309
+    second: Slime_boss2_Attack2_front-Sheet_6
+  - first:
+      213: -6920728152608007786
+    second: Slime_boss2_Attack2_front-Sheet_7
+  - first:
+      213: -8252421925456856261
+    second: Slime_boss2_Attack2_front-Sheet_8
+  - first:
+      213: -6636403845461136896
+    second: Slime_boss2_Attack2_front-Sheet_9
+  - first:
+      213: -7851858244313392569
+    second: Slime_boss2_Attack2_front-Sheet_10
+  - first:
+      213: -4481020450845489499
+    second: Slime_boss2_Attack2_front-Sheet_11
+  - first:
+      213: -262785520379251730
+    second: Slime_boss2_Attack2_front-Sheet_12
+  - first:
+      213: 9033178519829462000
+    second: Slime_boss2_Attack2_front-Sheet_13
+  - first:
+      213: -6962442326289996281
+    second: Slime_boss2_Attack2_front-Sheet_14
+  - first:
+      213: 5092128076878066309
+    second: Slime_boss2_Attack2_front-Sheet_15
+  - first:
+      213: -8189814690977255357
+    second: Slime_boss2_Attack2_front-Sheet_16
+  - first:
+      213: 7594556824324195296
+    second: Slime_boss2_Attack2_front-Sheet_17
+  - first:
+      213: -1940864465106573120
+    second: Slime_boss2_Attack2_front-Sheet_18
+  - first:
+      213: 8259604734425671446
+    second: Slime_boss2_Attack2_front-Sheet_19
+  - first:
+      213: 5805142954455546019
+    second: Slime_boss2_Attack2_front-Sheet_20
+  - first:
+      213: -6824254522397340983
+    second: Slime_boss2_Attack2_front-Sheet_21
+  - first:
+      213: 7051962382507474061
+    second: Slime_boss2_Attack2_front-Sheet_22
+  - first:
+      213: -1698569650439364198
+    second: Slime_boss2_Attack2_front-Sheet_23
+  - first:
+      213: 92023252832706202
+    second: Slime_boss2_Attack2_front-Sheet_24
+  - first:
+      213: 480673476901157643
+    second: Slime_boss2_Attack2_front-Sheet_25
+  - first:
+      213: 7498485740459891899
+    second: Slime_boss2_Attack2_front-Sheet_26
+  - first:
+      213: 4319753741271579156
+    second: Slime_boss2_Attack2_front-Sheet_27
+  - first:
+      213: 6522010315423498829
+    second: Slime_boss2_Attack2_front-Sheet_28
+  - first:
+      213: -2653423476713430233
+    second: Slime_boss2_Attack2_front-Sheet_29
+  - first:
+      213: -3574164702110849465
+    second: Slime_boss2_Attack2_front-Sheet_30
+  - first:
+      213: 8516528513534037207
+    second: Slime_boss2_Attack2_front-Sheet_31
+  - first:
+      213: 4130031862990446657
+    second: Slime_boss2_Attack2_front-Sheet_32
+  - first:
+      213: -1594225332138771244
+    second: Slime_boss2_Attack2_front-Sheet_33
+  - first:
+      213: 4907376503629835238
+    second: Slime_boss2_Attack2_front-Sheet_34
+  - first:
+      213: -8556544158500160611
+    second: Slime_boss2_Attack2_front-Sheet_35
+  - first:
+      213: 699595144618379484
+    second: Slime_boss2_Attack2_front-Sheet_36
+  - first:
+      213: 228075198707666682
+    second: Slime_boss2_Attack2_front-Sheet_37
+  - first:
+      213: 416369650859353171
+    second: Slime_boss2_Attack2_front-Sheet_38
+  - first:
+      213: 3161905407429673797
+    second: Slime_boss2_Attack2_front-Sheet_39
+  - first:
+      213: -5452241310414846150
+    second: Slime_boss2_Attack2_front-Sheet_40
+  - first:
+      213: 6188510379965427664
+    second: Slime_boss2_Attack2_front-Sheet_41
+  - first:
+      213: 1790198712013060022
+    second: Slime_boss2_Attack2_front-Sheet_42
+  - first:
+      213: -3068310041972056296
+    second: Slime_boss2_Attack2_front-Sheet_43
+  - first:
+      213: 5802641657133067639
+    second: Slime_boss2_Attack2_front-Sheet_44
+  - first:
+      213: -539867469478077994
+    second: Slime_boss2_Attack2_front-Sheet_45
+  - first:
+      213: 8389066067746856227
+    second: Slime_boss2_Attack2_front-Sheet_46
+  - first:
+      213: -2909149489131515691
+    second: Slime_boss2_Attack2_front-Sheet_47
+  - first:
+      213: 7638463578749209000
+    second: Slime_boss2_Attack2_front-Sheet_48
+  - first:
+      213: -4425562740815304513
+    second: Slime_boss2_Attack2_front-Sheet_49
+  - first:
+      213: -8232250216179242064
+    second: Slime_boss2_Attack2_front-Sheet_50
+  - first:
+      213: -8886694680514085269
+    second: Slime_boss2_Attack2_front-Sheet_51
+  - first:
+      213: -3654875840874073964
+    second: Slime_boss2_Attack2_front-Sheet_52
+  - first:
+      213: 210329516349273799
+    second: Slime_boss2_Attack2_front-Sheet_53
+  - first:
+      213: 1550281986315879681
+    second: Slime_boss2_Attack2_front-Sheet_54
+  - first:
+      213: -1961976402991418889
+    second: Slime_boss2_Attack2_front-Sheet_55
+  - first:
+      213: 4976210424631406246
+    second: Slime_boss2_Attack2_front-Sheet_56
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Slime_boss2_Attack2_front-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53ec631160fba9a20800000000000000
+      internalID: 3069976128785927733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime_boss2_Attack2_front-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16970cebcda3e4c90800000000000000
+      internalID: -7183739635841861279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime_boss2_Attack2_front-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3969540ec2de0e3a0800000000000000
+      internalID: -6638045073747110253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime_boss2_Attack2_front-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 533682e7a680f8800800000000000000
+      internalID: 616720927449178933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime_boss2_Attack2_front-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b89290d59bc4ca360800000000000000
+      internalID: 7182199864762640779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime_boss2_Attack2_front-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dac15da2f2c0d1920800000000000000
+      internalID: 2962537526601260205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime_boss2_Attack2_front-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de316455ddb64d300800000000000000
+      internalID: 275964075539043309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime_boss2_Attack2_front-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69911cca962a4ff90800000000000000
+      internalID: -6920728152608007786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime_boss2_Attack2_front-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3bbf746bf1897d80800000000000000
+      internalID: -8252421925456856261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime_boss2_Attack2_front-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00aa04d1dd1c6e3a0800000000000000
+      internalID: -6636403845461136896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f8319335b0b19f44ba7197bbf052c149
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Slime_boss2_Attack2_front-Sheet_0: 3069976128785927733
+      Slime_boss2_Attack2_front-Sheet_1: -7183739635841861279
+      Slime_boss2_Attack2_front-Sheet_2: -6638045073747110253
+      Slime_boss2_Attack2_front-Sheet_3: 616720927449178933
+      Slime_boss2_Attack2_front-Sheet_4: 7182199864762640779
+      Slime_boss2_Attack2_front-Sheet_5: 2962537526601260205
+      Slime_boss2_Attack2_front-Sheet_6: 275964075539043309
+      Slime_boss2_Attack2_front-Sheet_7: -6920728152608007786
+      Slime_boss2_Attack2_front-Sheet_8: -8252421925456856261
+      Slime_boss2_Attack2_front-Sheet_9: -6636403845461136896
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

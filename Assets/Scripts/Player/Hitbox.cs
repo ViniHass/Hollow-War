@@ -25,10 +25,22 @@ public class Hitbox : MonoBehaviour
                 if (bossHealth != null)
                 {
                     // Boss encontrado!
-                    // O boss não usa knockback, mas a função precisa dele
                     Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
                     bossHealth.TakeDamage(damage, knockbackDirection);
                 }
+                // --- MUDANÇA AQUI ---
+                // 3. Se falhar, tenta achar o script de vida do SLIME BOSS
+                else
+                {
+                    BossSlime_Health slimeBossHealth = other.GetComponentInParent<BossSlime_Health>();
+                    if (slimeBossHealth != null)
+                    {
+                        // Boss Slime encontrado!
+                        Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
+                        slimeBossHealth.TakeDamage(damage, knockbackDirection);
+                    }
+                }
+                // --- FIM DA MUDANÇA ---
             }
         }
     }
