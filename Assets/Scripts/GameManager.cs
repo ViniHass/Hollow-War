@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
     public Vector3 respawnOffset = new Vector3(0, 2, 0);
     public float tempoAntesRespawn = 1f;
     
+    [Header("Audio de Respawn")]
+    [SerializeField] private AudioClip respawnSound;
+    [Range(0f, 2f)]
+    [SerializeField] private float respawnVolume = 1f;
+    
     [Header("Referências")]
     public GameObject player;
     
@@ -132,6 +137,12 @@ public class GameManager : MonoBehaviour
             
             player.transform.position = respawnPos;
             player.SetActive(true);
+
+            // 🎵 Reproduz o som de respawn DEPOIS de reativar o player
+            if (AudioManager.Instance != null && respawnSound != null)
+            {
+                AudioManager.Instance.PlaySound(respawnSound, player.transform.position, respawnVolume);
+            }
 
             if (healthComponent != null)
             {
