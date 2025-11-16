@@ -254,4 +254,14 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+
+    void Update()
+    {
+        // Verifica se a tela de Game Over está ativa E se a tecla R foi pressionada
+        // Se o painel estiver ativo, o jogo está pausado (Time.timeScale = 0f)
+        if (painelGameOver != null && painelGameOver.activeSelf && Input.GetKeyDown(KeyCode.R))
+        {
+            ReiniciarJogo();
+        }
+    }
 }
