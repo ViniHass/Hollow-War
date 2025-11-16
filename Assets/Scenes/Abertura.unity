@@ -243,7 +243,7 @@ MonoBehaviour:
   textoPrologo: {fileID: 527189874}
   painelFinal: {fileID: 769914978}
   audioIntro: {fileID: 1202612886}
-  tempoTextoInicial: 3
+  tempoTextoInicial: 5
   tempoPrologo: 18
 --- !u!1 &527189872
 GameObject:
@@ -307,7 +307,7 @@ MonoBehaviour:
     elfos e goblins lutam n\xE3o por gl\xF3ria, mas pela sobreviv\xEAncia.\n\nNa
     isolada e fr\xE1gil vila dos goblins, a fome e a doen\xE7a amea\xE7am acabar
     com todo o seu povo. Por\xE9m, uma antiga profecia fala sobre o lend\xE1rio Mapa
-    do Mundo: um artefato m\xEDtico capaz de revelar caminhos seguros, abund\xE2ncia
+    do Mundo \u2014 um artefato m\xEDtico capaz de revelar caminhos seguros, abund\xE2ncia
     de alimentos e ervas medicinais raras.\n\nQuando um jovem goblin descobre uma
     pista sobre o paradeiro desse mapa perdido, ele decide se tornar o her\xF3i que
     sua vila tanto precisa. Mas antes de partir em sua busca, ele deve provar seu
@@ -893,7 +893,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4003142012952627503, guid: 98b2fce4ba927b143a7a735b3a482b1f, type: 3}
+  m_Sprite: {fileID: 2637403925422779543, guid: 012e2ae2f80c6254e85203cf690b2ece, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
