@@ -4,19 +4,16 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
 
-
 public class GameManager : MonoBehaviour
 {
-    // NOVO: Evento estático para notificar outros scripts (como NPCs) que o Game Over ocorreu.
+    // Evento para notificar o Game Over (usado por NPCQuest)
     public static event System.Action OnGameOver;
-
-    // 1. O Padrão Singleton: Permite que outros scripts o encontrem facilmente.
     public static GameManager Instance;
 
     [Header("Configurações de Vidas")]
     public int vidasAtuais = 3;
 
-    // Arrays e Sprites para a UI
+    [Header("UI de Vidas")]
     public Image[] coracoesUI;
     public Sprite coracaoCheioSprite;
     public Sprite coracaoVazioSprite;
@@ -25,47 +22,28 @@ public class GameManager : MonoBehaviour
     public GameObject painelGameOver;
     public string nomeCenaRespawn = "Overworld";
 
-    [Header("Sistema de Persistência")]
-    // Dicionário para salvar o estado das quests (chave = nome do NPC, valor = estado)
-    private Dictionary<string, int> questStates = new Dictionary<string, int>();
-
-    // Dicionário para armazenar os itens que foram coletados (chave = nome do item)
-    private Dictionary<string, bool> collectedItems = new Dictionary<string, bool>();
-
+    [Header("Configurações de Respawn")]
+    public Vector3 respawnOffset = new Vector3(0, 2, 0);
+    public float tempoAntesRespawn = 1f;
     
     [Header("Referências")]
     public GameObject player;
-
-    IEnumerator RespawnRoutine()
-    {
-        yield return new WaitForSeconds(1f); // opcional, tempo para animação de morte
-
-        // Reativa o jogador
-        player.SetActive(true);
-
-        // Calcula ponto de respawn perto da morte
-        Vector3 offset = new Vector3(4, 10, 2); // pode ser alterado
-        Vector3 respawnPos = Health.lastDeathPosition + offset;
-
-        player.transform.position = respawnPos;
-
-        // Restaura vida
-        player.GetComponent<Health>().RestoreHealthFull();
-    }
-
     
+    // Guarda a última posição válida do player (checkpoint)
+    private Vector3 lastCheckpointPosition;
+    private bool hasCheckpoint = false;
 
+    // Sistema de Persistência
+    private Dictionary<string, int> questStates = new Dictionary<string, int>();
+    private Dictionary<string, bool> collectedItems = new Dictionary<string, bool>();
 
     void Awake()
     {
-        // O Singleton garante que apenas uma instância exista
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            
-            // Adiciona um listener para quando uma cena é carregada
-            SceneManager.sceneLoaded += OnSceneLoaded; 
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -79,33 +57,50 @@ public class GameManager : MonoBehaviour
         {
             painelGameOver.SetActive(false);
         }
+        
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+        
         AtualizarUI();
     }
-    
-    // Método chamado toda vez que uma cena é carregada
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Verifica se os itens coletados não devem reaparecer
         CheckAndRemoveCollectedItems();
+        
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+        
+        // Garante que a posição inicial da cena seja o primeiro checkpoint válido
+        if (player != null && !hasCheckpoint)
+        {
+            SetCheckpoint(player.transform.position);
+            Debug.Log("✓ Checkpoint inicial (posição de spawn) definido na nova cena.");
+        }
     }
-    
-    // Função principal chamada pelo player quando ele perde a barra de vida
-    // Seu método "Die" ou "Morte" seria uma chamada a este método.
+
+    public void SetCheckpoint(Vector3 position)
+    {
+        lastCheckpointPosition = position;
+        hasCheckpoint = true;
+        Debug.Log($"✓ Checkpoint definido em: {position}");
+    }
+
     public void PersonagemMorreu()
     {
         vidasAtuais--;
-
-        // 1. Atualiza a UI de corações
         AtualizarUI();
 
-        // 2. Verifica se o jogo acabou
         if (vidasAtuais <= 0)
         {
             GameOver();
         }
         else
         {
-            // Se ainda há vidas, recarrega a cena para "respawnar"
             RespawnPlayer();
         }
     }
@@ -115,24 +110,53 @@ public class GameManager : MonoBehaviour
         StartCoroutine(RespawnRoutine());
     }
 
+    IEnumerator RespawnRoutine()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null) yield break;
+        }
+        
+        // Desativa o Player imediatamente
+        player.SetActive(false); 
+        
+        yield return new WaitForSeconds(tempoAntesRespawn);
+
+        // Se houver um checkpoint ativo, reposiciona o Player
+        if (hasCheckpoint)
+        {
+            Health healthComponent = player.GetComponent<Health>() ?? player.GetComponentInChildren<Health>();
+
+            Vector3 respawnPos = lastCheckpointPosition + respawnOffset;
+            
+            player.transform.position = respawnPos;
+            player.SetActive(true);
+
+            if (healthComponent != null)
+            {
+                healthComponent.RestoreHealthFull();
+            }
+            
+            Debug.Log($"→ Respawnando no checkpoint: {lastCheckpointPosition}");
+        }
+        else
+        {
+            // 🚨 Ação sem checkpoint: Recarrega a cena de respawn (posição de spawn padrão)
+            Debug.LogWarning("⚠ Nenhum checkpoint ativo. Recarregando cena de spawn.");
+            SceneManager.LoadScene(nomeCenaRespawn);
+        }
+    }
 
     void AtualizarUI()
     {
-        // Percorre os corações na UI
+        if (coracoesUI == null || coracoesUI.Length == 0) return;
+
         for (int i = 0; i < coracoesUI.Length; i++)
         {
-            if (i < vidasAtuais)
-            {
-                // Coração Cheio (mostra que há vida)
-                coracoesUI[i].sprite = coracaoCheioSprite;
-                coracoesUI[i].enabled = true; // Garante que a imagem esteja ativa
-            }
-            else
-            {
-                // Coração Vazio (mostra que a vida foi perdida)
-                coracoesUI[i].sprite = coracaoVazioSprite;
-                coracoesUI[i].enabled = true;
-            }
+            if (coracoesUI[i] == null) continue;
+
+            coracoesUI[i].sprite = (i < vidasAtuais) ? coracaoCheioSprite : coracaoVazioSprite;
         }
     }
 
@@ -141,20 +165,19 @@ public class GameManager : MonoBehaviour
         if (painelGameOver != null)
         {
             painelGameOver.SetActive(true);
-            Time.timeScale = 0f; // Pausa o jogo
+            Time.timeScale = 0f;
         }
 
-        // Dispara o evento de Game Over 
         if (OnGameOver != null)
         {
             OnGameOver();
         }
 
-        // Reseta todas as quests (o NPCQuest irá redefinir seu estado usando o evento OnGameOver)
         ResetAllQuests();
     }
     
-    // MÉTODO: Marca um item como permanentemente coletado.
+    // ========== SISTEMA DE PERSISTÊNCIA ==========
+
     public void MarkItemAsPicked(string itemName)
     {
         if (!collectedItems.ContainsKey(itemName))
@@ -165,29 +188,24 @@ public class GameManager : MonoBehaviour
         {
             collectedItems[itemName] = true;
         }
-        Debug.Log($"Item {itemName} marcado como coletado.");
     }
 
-    // MÉTODO: Verifica a cena e destrói ItemPickups que já foram coletados.
     void CheckAndRemoveCollectedItems()
     {
         ItemPickup[] itemsInScene = FindObjectsOfType<ItemPickup>();
         
         foreach (ItemPickup item in itemsInScene)
         {
-            string itemName = item.ItemToGive.itemName; 
+            if (item.ItemToGive == null) continue;
+
+            string itemName = item.ItemToGive.itemName;
             
             if (collectedItems.ContainsKey(itemName))
             {
-                // Se o item foi coletado, remove-o imediatamente da cena
                 Destroy(item.gameObject);
-                Debug.Log($"Item {itemName} removido ao carregar a cena, pois já havia sido coletado.");
             }
         }
     }
-
-
-    // ========== SISTEMA DE PERSISTÊNCIA DE QUESTS ==========
 
     public void SaveQuestState(string npcId, int questState)
     {
@@ -199,7 +217,6 @@ public class GameManager : MonoBehaviour
         {
             questStates.Add(npcId, questState);
         }
-        Debug.Log($"Quest de '{npcId}' salva com estado: {questState}");
     }
 
     public int LoadQuestState(string npcId)
@@ -208,27 +225,24 @@ public class GameManager : MonoBehaviour
         {
             return questStates[npcId];
         }
-        return -1; // Indica que não há estado salvo
+        return -1;
     }
 
     void ResetAllQuests()
     {
-        // Limpa o dicionário de persistência
-        questStates.Clear(); 
-        Debug.Log("Todas as quests foram resetadas!");
+        questStates.Clear();
     }
 
     public void ReiniciarJogo()
     {
-        Time.timeScale = 1f; // Despausa o jogo
+        Time.timeScale = 1f;
         vidasAtuais = 3;
         ResetAllQuests();
-        
-        // Limpa os itens coletados ao reiniciar o jogo
         collectedItems.Clear();
+        hasCheckpoint = false;
+        lastCheckpointPosition = Vector3.zero;
 
         SceneManager.LoadScene(nomeCenaRespawn);
-        SceneManager.LoadScene("Pradaria", LoadSceneMode.Additive);
         
         if (painelGameOver != null)
         {
@@ -236,6 +250,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 }
-
