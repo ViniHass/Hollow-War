@@ -7,6 +7,11 @@ public class EnemyHealth : MonoBehaviour
     private EnemyAI ai;
     private Animator animator;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip damageSound;
+    [Range(0f, 2f)]
+    [SerializeField] private float damageVolume = 1f;
+
     void Awake()
     {
         ai = GetComponent<EnemyAI>();
@@ -19,7 +24,13 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0) return; // Já está morto
 
         currentHealth -= damage;
-        ai.TriggerFeedback(knockbackDirection); 
+        ai.TriggerFeedback(knockbackDirection);
+
+        // Reproduz o som de dano com o volume ajustável
+        if (AudioManager.Instance != null && damageSound != null)
+        {
+            AudioManager.Instance.PlaySound(damageSound, transform.position, damageVolume);
+        }
 
         if (currentHealth <= 0)
         {
