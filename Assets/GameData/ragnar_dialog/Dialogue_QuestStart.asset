@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac54dab5799946a9a741d3196f479cd, type: 3}
+  m_Name: Dialogue_QuestStart
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  talkScript:
+  - name: Ragnar
+    text: "Ol\xE1, pequeno. Est\xE1 determinado a ser mais do que um Goblin que se
+      esconde em arbustos ?"
+  - name: Goblin
+    text: Eu vou ser o guerreiro mais forte de todos! Eu preciso de poder, Mestre
+      Ragnar!
+  - name: Ragnar
+    text: "Poder n\xE3o \xE9 dado, \xE9 extra\xEDdo. Eu preciso de um catalisador.
+      Um item que carregue a Ess\xEAncia do Valor e do medo para criar seu T\xF4nico
+      de F\xFAria."
+  - name: Ragnar
+    text: "V\xE1 at\xE9 o Cemit\xE9rio a leste. Entre as sepulturas mais antigas,
+      procure uma tumba sem nome. Nela, voc\xEA encontrar\xE1 A L\xE2mina Envelhecida
+      do Guerreiro Ca\xEDdo."
+  - name: Ragnar
+    text: "Essa l\xE2mina absorveu a coragem e o terror da morte. Traga-a para mim
+      sem hesitar, e darei a voc\xEA o T\xF4nico. Se voc\xEA fugir, volte a roubar
+      ma\xE7\xE3s."
