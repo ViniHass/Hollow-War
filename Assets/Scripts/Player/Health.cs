@@ -36,6 +36,44 @@ public class Health : MonoBehaviour
         Debug.Log("♥ Vida restaurada: " + currentHealth + "/" + maxHealth);
     }
 
+    /// <summary>
+    /// Cura uma quantidade específica de vida, sem ultrapassar o máximo.
+    /// </summary>
+    public void Heal(int amount)
+    {
+        if (amount <= 0) return;
+
+        int previousHealth = currentHealth;
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        UpdateHealthbar();
+
+        int actualHealing = currentHealth - previousHealth;
+        if (actualHealing > 0)
+        {
+            Debug.Log($"♥ {gameObject.name} curou {actualHealing} de vida. ({currentHealth}/{maxHealth})");
+        }
+    }
+
+    /// <summary>
+    /// Aumenta a vida máxima e atualiza a barra de vida proporcionalmente.
+    /// </summary>
+    public void IncreaseMaxHealth(int amount)
+    {
+        if (amount <= 0) return;
+
+        maxHealth += amount;
+        currentHealth += amount; // Aumenta a vida atual também
+        
+        // Recalcula o percentual da barra de vida com o novo máximo
+        if (healthBar != null)
+        {
+            healthPercent = healthBarScale.x / maxHealth;
+        }
+        
+        UpdateHealthbar();
+        Debug.Log($"⚡ Vida máxima aumentada! Novo máximo: {maxHealth}");
+    }
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -67,7 +105,6 @@ public class Health : MonoBehaviour
         {
             Debug.LogError("❌ GameManager não encontrado! Recarregando cena.");
             SceneManager.LoadScene("Overworld");
-
         }
     }
 

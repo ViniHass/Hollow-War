@@ -28,7 +28,7 @@ public class PlayerInteraction : MonoBehaviour
         if (show)
         {
             // Duração alta para manter o prompt na tela (999s)
-            UIManager.Instance.ShowGlobalMessage(message, 5.0f); 
+            UIManager.Instance.ShowGlobalMessage(message, 3.0f); 
         }
        
     }
@@ -68,7 +68,7 @@ public class PlayerInteraction : MonoBehaviour
             // 🌟 Exibe a mensagem de interação na tela
             string prompt = currentInteractable.GetPromptMessage();
             // A mensagem completa inclui a instrução para o jogador
-            UpdateInteractionPrompt(true, "Pressione 'E' para: " + prompt); 
+            UpdateInteractionPrompt(true,  prompt); 
         }
     }
 

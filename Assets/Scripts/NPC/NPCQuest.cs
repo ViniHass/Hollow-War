@@ -24,6 +24,16 @@ public class NPCQuest : MonoBehaviour, IInteractable
     [Tooltip("ID único para salvar o estado da quest.")]
     [SerializeField] private string npcId;
 
+    [Header("🌟 Power-up ao Completar Quest")]
+    [Tooltip("Se marcado, ao completar esta quest os stats do jogador serão aumentados.")]
+    [SerializeField] private bool grantsPowerUp = false;
+    
+    [SerializeField] private float moveSpeedBonus = 0f;
+    [SerializeField] private int maxHealthBonus = 0;
+    [SerializeField] private int attackDamageBonus = 0;
+    [SerializeField] private float decoyCooldownReduction = 0f;
+    [SerializeField] private float decoyDurationBonus = 0f;
+
     void OnEnable() 
     {
         GameManager.OnGameOver += ResetQuestOnGameOver;
@@ -44,12 +54,10 @@ public class NPCQuest : MonoBehaviour, IInteractable
         LoadQuestStateFromGameManager();
     }
     
-    // Método auxiliar para usar o UIManager
     private void ShowGlobalQuestMessage(string message)
     {
         if (UIManager.Instance != null)
         {
-            // Mensagens de quest com 3 segundos de duração.
             UIManager.Instance.ShowGlobalMessage(message, 3.0f); 
         }
         else
@@ -64,7 +72,6 @@ public class NPCQuest : MonoBehaviour, IInteractable
         SaveQuestStateToGameManager();
         Debug.Log($"Quest do NPC {gameObject.name} resetada devido ao Game Over.");
     }
-
 
     void LoadQuestStateFromGameManager()
     {
@@ -91,10 +98,10 @@ public class NPCQuest : MonoBehaviour, IInteractable
     {
         switch (state) 
         {
-            case QuestState.NotStarted: return "Falar";
-            case QuestState.Started: return "Entregar Item";
+            case QuestState.NotStarted: return "Aperte E para Falar";
+            case QuestState.Started: return "Aperte E para Entregar Item";
             case QuestState.CompletedNoItem:
-            case QuestState.Completed: return "Conversar";
+            case QuestState.Completed: return "Aperte E para Conversar";
             default: return "Interagir";
         }
     }
@@ -121,7 +128,6 @@ public class NPCQuest : MonoBehaviour, IInteractable
             state = QuestState.Started;
             SaveQuestStateToGameManager();
             
-            // 🌟 INSTRUÇÃO: O que fazer após iniciar a quest
             ShowGlobalQuestMessage($"INSTRUÇÃO: Você precisa encontrar '{requiredItem.itemName}'.");
         } 
         else 
@@ -144,7 +150,13 @@ public class NPCQuest : MonoBehaviour, IInteractable
                 rewardMessage = $" Recompensa: {rewardItem.itemName}!";
             }
             
-            // 🌟 INSTRUÇÃO: Feedback de sucesso
+            // 🌟 APLICAR POWER-UP se esta quest concede
+            if (grantsPowerUp)
+            {
+                ApplyPowerUp();
+                rewardMessage += " ⚡ PODERES AUMENTADOS!";
+            }
+            
             ShowGlobalQuestMessage($"Quest CONCLUÍDA!{rewardMessage}");
 
             dialogueSystem.SetDialogue(dialogueCompleted);
@@ -153,11 +165,79 @@ public class NPCQuest : MonoBehaviour, IInteractable
         } 
         else 
         {
-            // 🌟 INSTRUÇÃO: Feedback de item faltando
             ShowGlobalQuestMessage($"INSTRUÇÃO: Eu ainda estou esperando pelo '{requiredItem.itemName}'.");
             
             dialogueSystem.SetDialogue(dialogueNoItem);
             dialogueSystem.StartDialogue();
+        }
+    }
+
+    void ApplyPowerUp()
+    {
+        // Encontrar o PlayerController na cena
+        PlayerController playerController = FindObjectOfType<PlayerController>();
+        
+        if (playerController == null)
+        {
+            Debug.LogError("❌ PlayerController não encontrado na cena!");
+            return;
+        }
+
+        // Usar Reflection para acessar o PlayerStats (que é private)
+        System.Reflection.FieldInfo statsField = typeof(PlayerController).GetField("stats", 
+            System.Reflection.BindingFlags.NonPublic | 
+            System.Reflection.BindingFlags.Instance);
+        
+        if (statsField == null)
+        {
+            Debug.LogError("❌ Não foi possível acessar o campo 'stats' do PlayerController!");
+            return;
+        }
+        
+        PlayerStats stats = statsField.GetValue(playerController) as PlayerStats;
+        
+        if (stats == null)
+        {
+            Debug.LogError("❌ PlayerStats não está atribuído no PlayerController!");
+            return;
+        }
+
+        // Log ANTES das mudanças
+        Debug.Log($"📊 STATS ANTES DO POWER-UP:\n" +
+                 $"  • Velocidade: {stats.moveSpeed}\n" +
+                 $"  • Vida Máxima: {stats.maxHealth}\n" +
+                 $"  • Dano: {stats.attackDamage}\n" +
+                 $"  • Cooldown Decoy: {stats.decoyCooldown}s\n" +
+                 $"  • Duração Decoy: {stats.decoyDuration}s");
+
+        // Aplicar bônus ao ScriptableObject
+        stats.moveSpeed += moveSpeedBonus;
+        stats.maxHealth += maxHealthBonus;
+        stats.attackDamage += attackDamageBonus;
+        stats.decoyCooldown = Mathf.Max(0, stats.decoyCooldown - decoyCooldownReduction);
+        stats.decoyDuration += decoyDurationBonus;
+
+        // Log DEPOIS das mudanças
+        Debug.Log($"⚡ POWER-UP APLICADO COM SUCESSO!\n" +
+                 $"  • Velocidade: {stats.moveSpeed} (+{moveSpeedBonus})\n" +
+                 $"  • Vida Máxima: {stats.maxHealth} (+{maxHealthBonus})\n" +
+                 $"  • Dano: {stats.attackDamage} (+{attackDamageBonus})\n" +
+                 $"  • Cooldown Decoy: {stats.decoyCooldown}s (-{decoyCooldownReduction}s)\n" +
+                 $"  • Duração Decoy: {stats.decoyDuration}s (+{decoyDurationBonus}s)");
+
+        // Atualizar a vida do jogador se ganhou vida máxima
+        if (maxHealthBonus > 0)
+        {
+            Health playerHealth = playerController.GetComponent<Health>();
+            
+            if (playerHealth != null)
+            {
+                playerHealth.IncreaseMaxHealth(maxHealthBonus);
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ Componente Health do jogador não encontrado! Os stats foram aumentados, mas a vida atual não foi curada.");
+            }
         }
     }
 
@@ -166,7 +246,6 @@ public class NPCQuest : MonoBehaviour, IInteractable
         dialogueSystem.SetDialogue(dialogueCompleted);
         dialogueSystem.StartDialogue();
         
-        // 🌟 INSTRUÇÃO: Quest completa
         ShowGlobalQuestMessage("Quest concluída. Não há mais tarefas aqui.");
     }
 
@@ -177,7 +256,6 @@ public class NPCQuest : MonoBehaviour, IInteractable
             dialogueSystem.SetDialogue(dialogueCompletedNoItem);
             dialogueSystem.StartDialogue();
             
-            // 🌟 INSTRUÇÃO: Quest finalizada
             ShowGlobalQuestMessage("Missão finalizada. Siga para a próxima aventura!");
         }
     }

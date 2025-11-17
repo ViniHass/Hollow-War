@@ -58,6 +58,6 @@ public class BridgeRepair : MonoBehaviour, IInteractable
         {
             return "A ponte está consertada.";
         }
-        return "A ponte está quebrada. Talvez madeira ajude.";
+        return "Aperte E para consertar";
     }
 }
