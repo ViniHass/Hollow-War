@@ -792,6 +792,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   stats: {fileID: 11400000, guid: b7ee6b28a873b2e49b9bd5037fc35552, type: 2}
+  damageSound: {fileID: 8300000, guid: e7943b80a214604438832d33d945be07, type: 3}
+  damageVolume: 1
 --- !u!114 &5631160384208500674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,3 +811,5 @@ MonoBehaviour:
   hitboxS: {fileID: 2772773789422679024}
   hitboxE: {fileID: 8111749249773905310}
   hitboxW: {fileID: 8022897317712205936}
+  attackSound: {fileID: 8300000, guid: d739fc8d65ae7c54bb9cb5e7097ef199, type: 3}
+  attackVolume: 1

@@ -323,6 +323,8 @@ MonoBehaviour:
   hitboxS: {fileID: 364239961806452551}
   hitboxE: {fileID: 4659396381510465852}
   hitboxW: {fileID: 6525053542900965164}
+  attackSound: {fileID: 8300000, guid: 3040f7cf9f5db91478749b78cac0f777, type: 3}
+  attackVolume: 1
 --- !u!1 &1924167239679000703
 GameObject:
   m_ObjectHideFlags: 0
