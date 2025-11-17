@@ -25,6 +25,23 @@ public class PlayerStats : ScriptableObject
     [Tooltip("A duração total da animação de ataque. Deve ser maior que a soma do delay e do tempo ativo.")]
     public float attackAnimationDuration = 0.36f;
 
+    [Header("Dagger Skill")]
+    [Tooltip("Dano causado pela adaga lançada.")]
+    public int daggerDamage = 2;
+    [Tooltip("Dano padrão da adaga ao resetar")]
+    public int defaultDaggerDamage = 2;
+    
+    [Tooltip("Velocidade de movimento da adaga em unidades/segundo.")]
+    public float daggerSpeed = 10f;
+    
+    [Tooltip("Tempo de vida da adaga em segundos antes de desaparecer.")]
+    public float daggerLifetime = 3f;
+    
+    [Tooltip("Cooldown em segundos para lançar outra adaga.")]
+    public float daggerCooldown = 2f;
+    [Tooltip("Cooldown padrão da adaga ao resetar")]
+    public float defaultDaggerCooldown = 2f;
+
     [Header("Decoy Skill")]
     [Tooltip("Por quantos segundos o decoy permanece ativo.")]
     public float decoyDuration = 5f;
@@ -47,6 +64,8 @@ public class PlayerStats : ScriptableObject
         moveSpeed = defaultMoveSpeed;
         maxHealth = defaultMaxHealth;
         attackDamage = defaultAttackDamage;
+        daggerDamage = defaultDaggerDamage;
+        daggerCooldown = defaultDaggerCooldown;
         decoyDuration = defaultDecoyDuration;
         decoyCooldown = defaultDecoyCooldown;
         
@@ -54,6 +73,8 @@ public class PlayerStats : ScriptableObject
                  $"  • Velocidade: {moveSpeed}\n" +
                  $"  • Vida Máxima: {maxHealth}\n" +
                  $"  • Dano: {attackDamage}\n" +
+                 $"  • Dano Adaga: {daggerDamage}\n" +
+                 $"  • Cooldown Adaga: {daggerCooldown}s\n" +
                  $"  • Cooldown Decoy: {decoyCooldown}s\n" +
                  $"  • Duração Decoy: {decoyDuration}s");
     }
