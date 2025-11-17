@@ -2463,6 +2463,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a41d3ed5e956a4d7493df71cdc55a66c, type: 2}
     - target: {fileID: 1053450038124840631, guid: 902716e69c486494faf520e48d52b5b4, type: 3}
+      propertyPath: grantsPowerUp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053450038124840631, guid: 902716e69c486494faf520e48d52b5b4, type: 3}
       propertyPath: dialogueNoItem
       value: 
       objectReference: {fileID: 11400000, guid: 2a6b847dc2094450e9b970e92c276218, type: 2}
@@ -2471,13 +2475,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1814084548}
     - target: {fileID: 1053450038124840631, guid: 902716e69c486494faf520e48d52b5b4, type: 3}
+      propertyPath: maxHealthBonus
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053450038124840631, guid: 902716e69c486494faf520e48d52b5b4, type: 3}
+      propertyPath: moveSpeedBonus
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053450038124840631, guid: 902716e69c486494faf520e48d52b5b4, type: 3}
+      propertyPath: attackDamageBonus
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053450038124840631, guid: 902716e69c486494faf520e48d52b5b4, type: 3}
       propertyPath: dialogueCompleted
       value: 
       objectReference: {fileID: 11400000, guid: 516d7323f1ab64e7c9c8af49c7ad5626, type: 2}
     - target: {fileID: 1053450038124840631, guid: 902716e69c486494faf520e48d52b5b4, type: 3}
+      propertyPath: decoyDurationBonus
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053450038124840631, guid: 902716e69c486494faf520e48d52b5b4, type: 3}
       propertyPath: dialogueNotStarted
       value: 
       objectReference: {fileID: 11400000, guid: 0c6fd096bbdaa4e30857a307ccab409e, type: 2}
+    - target: {fileID: 1053450038124840631, guid: 902716e69c486494faf520e48d52b5b4, type: 3}
+      propertyPath: decoyCooldownReduction
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1053450038124840631, guid: 902716e69c486494faf520e48d52b5b4, type: 3}
       propertyPath: dialogueCompletedNoItem
       value: 
@@ -6177,7 +6201,7 @@ Transform:
   m_GameObject: {fileID: 1137685271}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 144.8, y: 15.7, z: 0}
+  m_LocalPosition: {x: 129.76, y: 4.75, z: 0}
   m_LocalScale: {x: 0.20800525, y: 0.20455863, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6242,6 +6266,12 @@ MonoBehaviour:
   requiredItem: {fileID: 11400000, guid: 864e8f2bd7c664f2eb4a2261110a24f2, type: 2}
   rewardItem: {fileID: 0}
   npcId: 1
+  grantsPowerUp: 0
+  moveSpeedBonus: 0
+  maxHealthBonus: 0
+  attackDamageBonus: 0
+  decoyCooldownReduction: 0
+  decoyDurationBonus: 0
 --- !u!61 &1217252276
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10571,7 +10601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3667139405868857250, guid: 461511ff58906ff4e9a69c69e63dc48a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.8
+      value: 133.8
       objectReference: {fileID: 0}
     - target: {fileID: 3667139405868857250, guid: 461511ff58906ff4e9a69c69e63dc48a, type: 3}
       propertyPath: m_LocalPosition.y

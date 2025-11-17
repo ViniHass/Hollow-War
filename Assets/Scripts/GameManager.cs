@@ -33,10 +33,6 @@ public class GameManager : MonoBehaviour
     
     [Header("Referências")]
     public GameObject player;
-
-    [Header("📊 Stats do Jogador")]
-    [Tooltip("Arraste o ScriptableObject PlayerStats aqui")]
-    [SerializeField] private PlayerStats playerStats;
     
     // Guarda a última posição válida do player (checkpoint)
     private Vector3 lastCheckpointPosition;
@@ -45,18 +41,6 @@ public class GameManager : MonoBehaviour
     // Sistema de Persistência
     private Dictionary<string, int> questStates = new Dictionary<string, int>();
     private Dictionary<string, bool> collectedItems = new Dictionary<string, bool>();
-
-    // 💾 Backup dos Stats Originais do Jogador (valores primitivos)
-    private float originalMoveSpeed;
-    private int originalMaxHealth;
-    private int originalAttackDamage;
-    private float originalAttackHitboxDelay;
-    private float originalAttackHitboxActiveTime;
-    private float originalAttackAnimationDuration;
-    private float originalDecoyDuration;
-    private float originalDecoyCooldown;
-    private float originalDecoyDestructionAnimTime;
-    private bool hasStatsBackup = false;
 
     void Awake()
     {
@@ -85,10 +69,6 @@ public class GameManager : MonoBehaviour
         {
             player = GameObject.FindGameObjectWithTag("Player");
         }
-
-        // Fazer backup dos stats originais no início do jogo
-        Debug.Log("💾 Tentando fazer backup dos stats...");
-        BackupOriginalStats();
         
         AtualizarUI();
     }
@@ -108,135 +88,6 @@ public class GameManager : MonoBehaviour
             SetCheckpoint(player.transform.position);
             Debug.Log("✓ Checkpoint inicial (posição de spawn) definido na nova cena.");
         }
-
-        // Fazer backup dos stats se ainda não foi feito
-        if (!hasStatsBackup)
-        {
-            BackupOriginalStats();
-        }
-    }
-
-    /// <summary>
-    /// Faz backup dos valores originais do PlayerStats no início do jogo
-    /// </summary>
-    void BackupOriginalStats()
-    {
-        if (hasStatsBackup)
-        {
-            Debug.Log("⚠️ Backup já foi feito anteriormente. Pulando...");
-            return;
-        }
-
-        PlayerController playerController = FindObjectOfType<PlayerController>();
-        if (playerController == null)
-        {
-            Debug.LogWarning("⚠️ PlayerController não encontrado para fazer backup dos stats.");
-            return;
-        }
-
-        // Usar Reflection para acessar o PlayerStats (que é private)
-        System.Reflection.FieldInfo statsField = typeof(PlayerController).GetField("stats", 
-            System.Reflection.BindingFlags.NonPublic | 
-            System.Reflection.BindingFlags.Instance);
-        
-        if (statsField == null)
-        {
-            Debug.LogWarning("⚠️ Não foi possível acessar o campo 'stats' do PlayerController!");
-            return;
-        }
-        
-        PlayerStats currentStats = statsField.GetValue(playerController) as PlayerStats;
-        
-        if (currentStats == null)
-        {
-            Debug.LogWarning("⚠️ PlayerStats não está atribuído no PlayerController!");
-            return;
-        }
-
-        // Salvar os valores como primitivos (não referência ao ScriptableObject)
-        originalMoveSpeed = currentStats.moveSpeed;
-        originalMaxHealth = currentStats.maxHealth;
-        originalAttackDamage = currentStats.attackDamage;
-        originalAttackHitboxDelay = currentStats.attackHitboxDelay;
-        originalAttackHitboxActiveTime = currentStats.attackHitboxActiveTime;
-        originalAttackAnimationDuration = currentStats.attackAnimationDuration;
-        originalDecoyDuration = currentStats.decoyDuration;
-        originalDecoyCooldown = currentStats.decoyCooldown;
-        originalDecoyDestructionAnimTime = currentStats.decoyDestructionAnimTime;
-
-        hasStatsBackup = true;
-        
-        Debug.Log($"💾 BACKUP DOS STATS ORIGINAIS REALIZADO:\n" +
-                 $"  • Velocidade: {originalMoveSpeed}\n" +
-                 $"  • Vida Máxima: {originalMaxHealth}\n" +
-                 $"  • Dano: {originalAttackDamage}\n" +
-                 $"  • Cooldown Decoy: {originalDecoyCooldown}s\n" +
-                 $"  • Duração Decoy: {originalDecoyDuration}s");
-    }
-
-    /// <summary>
-    /// Restaura os stats originais do jogador
-    /// </summary>
-    void RestoreOriginalStats()
-    {
-        if (!hasStatsBackup)
-        {
-            Debug.LogError("❌ NÃO HÁ BACKUP DE STATS PARA RESTAURAR!");
-            return;
-        }
-
-        PlayerController playerController = FindObjectOfType<PlayerController>();
-        if (playerController == null)
-        {
-            Debug.LogError("❌ PlayerController não encontrado para restaurar stats.");
-            return;
-        }
-
-        // Usar Reflection para acessar o PlayerStats (que é private)
-        System.Reflection.FieldInfo statsField = typeof(PlayerController).GetField("stats", 
-            System.Reflection.BindingFlags.NonPublic | 
-            System.Reflection.BindingFlags.Instance);
-        
-        if (statsField == null)
-        {
-            Debug.LogError("❌ Campo 'stats' não encontrado via Reflection!");
-            return;
-        }
-        
-        PlayerStats currentStats = statsField.GetValue(playerController) as PlayerStats;
-        
-        if (currentStats == null)
-        {
-            Debug.LogError("❌ PlayerStats é null!");
-            return;
-        }
-
-        // Log dos valores ANTES da restauração
-        Debug.Log($"📊 STATS ANTES DA RESTAURAÇÃO:\n" +
-                 $"  • Velocidade: {currentStats.moveSpeed}\n" +
-                 $"  • Vida Máxima: {currentStats.maxHealth}\n" +
-                 $"  • Dano: {currentStats.attackDamage}\n" +
-                 $"  • Cooldown Decoy: {currentStats.decoyCooldown}s\n" +
-                 $"  • Duração Decoy: {currentStats.decoyDuration}s");
-
-        // Restaurar os valores do backup (primitivos salvos)
-        currentStats.moveSpeed = originalMoveSpeed;
-        currentStats.maxHealth = originalMaxHealth;
-        currentStats.attackDamage = originalAttackDamage;
-        currentStats.attackHitboxDelay = originalAttackHitboxDelay;
-        currentStats.attackHitboxActiveTime = originalAttackHitboxActiveTime;
-        currentStats.attackAnimationDuration = originalAttackAnimationDuration;
-        currentStats.decoyDuration = originalDecoyDuration;
-        currentStats.decoyCooldown = originalDecoyCooldown;
-        currentStats.decoyDestructionAnimTime = originalDecoyDestructionAnimTime;
-
-        // Log dos valores DEPOIS da restauração
-        Debug.Log($"🔄 STATS RESTAURADOS AOS VALORES ORIGINAIS:\n" +
-                 $"  • Velocidade: {currentStats.moveSpeed} (era {originalMoveSpeed})\n" +
-                 $"  • Vida Máxima: {currentStats.maxHealth} (era {originalMaxHealth})\n" +
-                 $"  • Dano: {currentStats.attackDamage} (era {originalAttackDamage})\n" +
-                 $"  • Cooldown Decoy: {currentStats.decoyCooldown}s (era {originalDecoyCooldown}s)\n" +
-                 $"  • Duração Decoy: {currentStats.decoyDuration}s (era {originalDecoyDuration}s)");
     }
 
     public void SetCheckpoint(Vector3 position)
@@ -332,9 +183,17 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
         }
 
-        // 🔄 Restaurar stats originais ANTES de disparar o evento
-        Debug.Log("🔄 Iniciando restauração de stats...");
-        RestoreOriginalStats();
+        // 🔄 Resetar modificadores do PlayerController
+        Debug.Log("🔄 Resetando modificadores de stats...");
+        PlayerController playerController = FindObjectOfType<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.ResetModifiers();
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ PlayerController não encontrado para resetar modificadores!");
+        }
 
         // Disparar evento de Game Over (NPCQuest irá resetar as quests)
         if (OnGameOver != null)
@@ -405,6 +264,8 @@ public class GameManager : MonoBehaviour
 
     public void ReiniciarJogo()
     {
+        Debug.Log("🔄 Reiniciando jogo...");
+        
         Time.timeScale = 1f;
         vidasAtuais = 3;
         ResetAllQuests();
@@ -412,7 +273,13 @@ public class GameManager : MonoBehaviour
         hasCheckpoint = false;
         lastCheckpointPosition = Vector3.zero;
 
-        
+        // 🔄 Resetar modificadores do PlayerController ANTES de destruir
+        PlayerController playerController = FindObjectOfType<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.ResetModifiers();
+            Debug.Log("✅ Modificadores resetados antes de reiniciar o jogo.");
+        }
 
         if (painelGameOver != null)
         {
@@ -422,10 +289,8 @@ public class GameManager : MonoBehaviour
         Instance = null;
         SceneManager.sceneLoaded -= OnSceneLoaded;
         Destroy(gameObject);
-        // ------------------------------------------------------------------
 
-        // 🎯 O NOVO COMPORTAMENTO: CARREGA APENAS A CENA DE ABERTURA.
-        // O script GameIntroTMP irá lidar com o carregamento do Overworld/Pradaria.
+        // 🎯 Carrega a cena de abertura
         SceneManager.LoadScene("Abertura");
     }
 
@@ -434,15 +299,11 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    // GameManager.cs (Update CORRIGIDO)
-
     void Update()
     {
         // Verifica se a tela de Game Over está ativa E se a tecla R foi pressionada
         if (painelGameOver != null && painelGameOver.activeSelf && Input.GetKeyDown(KeyCode.R))
         {
-            // ✅ CORRETO: Chama a função que reseta TUDO (vidas, quests, tempo) 
-            // antes de carregar a cena.
             ReiniciarJogo();
         }
     }
