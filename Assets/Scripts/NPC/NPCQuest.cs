@@ -183,62 +183,14 @@ public class NPCQuest : MonoBehaviour, IInteractable
             return;
         }
 
-        // Usar Reflection para acessar o PlayerStats (que é private)
-        System.Reflection.FieldInfo statsField = typeof(PlayerController).GetField("stats", 
-            System.Reflection.BindingFlags.NonPublic | 
-            System.Reflection.BindingFlags.Instance);
-        
-        if (statsField == null)
-        {
-            Debug.LogError("❌ Não foi possível acessar o campo 'stats' do PlayerController!");
-            return;
-        }
-        
-        PlayerStats stats = statsField.GetValue(playerController) as PlayerStats;
-        
-        if (stats == null)
-        {
-            Debug.LogError("❌ PlayerStats não está atribuído no PlayerController!");
-            return;
-        }
-
-        // Log ANTES das mudanças
-        Debug.Log($"📊 STATS ANTES DO POWER-UP:\n" +
-                 $"  • Velocidade: {stats.moveSpeed}\n" +
-                 $"  • Vida Máxima: {stats.maxHealth}\n" +
-                 $"  • Dano: {stats.attackDamage}\n" +
-                 $"  • Cooldown Decoy: {stats.decoyCooldown}s\n" +
-                 $"  • Duração Decoy: {stats.decoyDuration}s");
-
-        // Aplicar bônus ao ScriptableObject
-        stats.moveSpeed += moveSpeedBonus;
-        stats.maxHealth += maxHealthBonus;
-        stats.attackDamage += attackDamageBonus;
-        stats.decoyCooldown = Mathf.Max(0, stats.decoyCooldown - decoyCooldownReduction);
-        stats.decoyDuration += decoyDurationBonus;
-
-        // Log DEPOIS das mudanças
-        Debug.Log($"⚡ POWER-UP APLICADO COM SUCESSO!\n" +
-                 $"  • Velocidade: {stats.moveSpeed} (+{moveSpeedBonus})\n" +
-                 $"  • Vida Máxima: {stats.maxHealth} (+{maxHealthBonus})\n" +
-                 $"  • Dano: {stats.attackDamage} (+{attackDamageBonus})\n" +
-                 $"  • Cooldown Decoy: {stats.decoyCooldown}s (-{decoyCooldownReduction}s)\n" +
-                 $"  • Duração Decoy: {stats.decoyDuration}s (+{decoyDurationBonus}s)");
-
-        // Atualizar a vida do jogador se ganhou vida máxima
-        if (maxHealthBonus > 0)
-        {
-            Health playerHealth = playerController.GetComponent<Health>();
-            
-            if (playerHealth != null)
-            {
-                playerHealth.IncreaseMaxHealth(maxHealthBonus);
-            }
-            else
-            {
-                Debug.LogWarning("⚠️ Componente Health do jogador não encontrado! Os stats foram aumentados, mas a vida atual não foi curada.");
-            }
-        }
+        // ✅ SOLUÇÃO SIMPLES: Chamar o método público ApplyPowerUp
+        playerController.ApplyPowerUp(
+            moveSpeedBonus,
+            maxHealthBonus,
+            attackDamageBonus,
+            decoyCooldownReduction,
+            decoyDurationBonus
+        );
     }
 
     void ShowCompletionDialogue() 

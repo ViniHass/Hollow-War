@@ -434,6 +434,7 @@ public class GameManager : MonoBehaviour
         // Se o painel estiver ativo, o jogo está pausado (Time.timeScale = 0f)
         if (painelGameOver != null && painelGameOver.activeSelf && Input.GetKeyDown(KeyCode.R))
         {
+            Destroy(player);
             SceneManager.LoadScene("Abertura");
         }
     }

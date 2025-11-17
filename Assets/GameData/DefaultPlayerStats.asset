@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124675006908aee45b275b04ea0487b7, type: 3}
   m_Name: DefaultPlayerStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  moveSpeed: 8
+  moveSpeed: 5
   defaultMoveSpeed: 5
-  maxHealth: 40
+  maxHealth: 20
   defaultMaxHealth: 20
-  attackDamage: 11
+  attackDamage: 1
   defaultAttackDamage: 1
   attackHitboxDelay: 0.15
   attackHitboxActiveTime: 0.15
   attackAnimationDuration: 0.36
-  decoyDuration: 7
+  decoyDuration: 5
   defaultDecoyDuration: 5
-  decoyCooldown: 0
+  decoyCooldown: 10
   defaultDecoyCooldown: 10
   decoyDestructionAnimTime: 0.4

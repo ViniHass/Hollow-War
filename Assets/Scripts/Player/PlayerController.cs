@@ -5,7 +5,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     [Header("Configuration")]
-    [SerializeField] private PlayerStats stats; // Seu gamedata
+    [SerializeField] private PlayerStats stats; // Seu gamedata (valores BASE)
 
     [Header("Hitbox References")]
     [SerializeField] private GameObject hitboxNE;
@@ -19,14 +19,27 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 2f)]
     [SerializeField] private float footstepVolume = 0.5f;
 
-    // --- NOVAS LINHAS ADICIONADAS ---
     [Header("Skill: Decoy")]
-    [SerializeField] private GameObject decoyPrefab; // Arraste seu prefab 'Decoy'
+    [SerializeField] private GameObject decoyPrefab;
     [SerializeField] private float decoySpawnOffset = 1.0f;
     
     private float decoyCooldownTimer = 0f;
     private bool isDecoyOnCooldown = false;
-    // --- FIM DAS NOVAS LINHAS ---
+
+    // 🌟 MODIFICADORES DE STATS (aplicados sobre os valores base)
+    [Header("📊 Modificadores Permanentes")]
+    [SerializeField] private float moveSpeedModifier = 0f;
+    [SerializeField] private int maxHealthModifier = 0;
+    [SerializeField] private int attackDamageModifier = 0;
+    [SerializeField] private float decoyCooldownModifier = 0f;
+    [SerializeField] private float decoyDurationModifier = 0f;
+
+    // Propriedades públicas para acessar os stats MODIFICADOS
+    public float CurrentMoveSpeed => stats.moveSpeed + moveSpeedModifier;
+    public int CurrentMaxHealth => stats.maxHealth + maxHealthModifier;
+    public int CurrentAttackDamage => stats.attackDamage + attackDamageModifier;
+    public float CurrentDecoyCooldown => Mathf.Max(0, stats.decoyCooldown - decoyCooldownModifier);
+    public float CurrentDecoyDuration => stats.decoyDuration + decoyDurationModifier;
 
     // Eventos
     public static event Action<Vector2> OnMove;
@@ -38,7 +51,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 lastDirection = new Vector2(1, 1);
     private bool isAttacking = false;
     private Hitbox activeHitbox;
-    private AudioSource footstepAudioSource; 
+    private AudioSource footstepAudioSource;
 
     void Awake()
     {
@@ -58,7 +71,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // --- NOVO: Gerenciamento do Cooldown ---
         if (isDecoyOnCooldown)
         {
             decoyCooldownTimer -= Time.deltaTime;
@@ -103,13 +115,11 @@ public class PlayerController : MonoBehaviour
 
         OnMove?.Invoke(movementInput);
 
-        // Input de Ataque
         if (Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(AttackCoroutine());
         }
 
-        // --- NOVO: Input da Skill Decoy (Tecla '1') ---
         if (Input.GetKeyDown(KeyCode.Alpha1) && !isAttacking && !isDecoyOnCooldown)
         {
             UseDecoy();
@@ -118,7 +128,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movementInput * stats.moveSpeed * Time.fixedDeltaTime);
+        // USA O STAT MODIFICADO
+        rb.MovePosition(rb.position + movementInput * CurrentMoveSpeed * Time.fixedDeltaTime);
     }
 
     private IEnumerator AttackCoroutine()
@@ -139,7 +150,8 @@ public class PlayerController : MonoBehaviour
             activeHitbox = hitboxToActivate.GetComponent<Hitbox>();
             if (activeHitbox != null)
             {
-                activeHitbox.damage = stats.attackDamage;
+                // USA O DANO MODIFICADO
+                activeHitbox.damage = CurrentAttackDamage;
             }
         }
         yield return new WaitForSeconds(stats.attackHitboxActiveTime);
@@ -171,33 +183,77 @@ public class PlayerController : MonoBehaviour
         return hitboxNE;
     }
 
-    // --- NOVO MÉTODO PARA USAR O DECOY ---
     private void UseDecoy()
     {
         isDecoyOnCooldown = true;
-        decoyCooldownTimer = stats.decoyCooldown; // Lê do gamedata
-        Debug.Log("Usou Decoy! Cooldown de " + stats.decoyCooldown + "s iniciado.");
+        // USA O COOLDOWN MODIFICADO
+        decoyCooldownTimer = CurrentDecoyCooldown;
+        Debug.Log("Usou Decoy! Cooldown de " + CurrentDecoyCooldown + "s iniciado.");
 
-        // 1. Determina a direção (Leste ou Oeste)
         bool facingRight = lastDirection.x >= 0;
-
-        // 2. Calcula a posição do spawn
         Vector2 spawnDirection = facingRight ? Vector2.right : Vector2.left;
         Vector3 spawnPosition = transform.position + (Vector3)spawnDirection * decoySpawnOffset;
 
-        // 3. Instancia (cria) o Decoy do prefab
         GameObject decoyInstance = Instantiate(decoyPrefab, spawnPosition, Quaternion.identity);
 
-        // 4. "Liga" o Decoy, passando os stats E a direção
         Decoy decoyScript = decoyInstance.GetComponent<Decoy>();
         if (decoyScript != null)
         {
-            // Passa os valores lidos do gamedata e a direção
-            decoyScript.Initialize(stats.decoyDuration, stats.decoyDestructionAnimTime, facingRight);
+            // USA A DURAÇÃO MODIFICADA
+            decoyScript.Initialize(CurrentDecoyDuration, stats.decoyDestructionAnimTime, facingRight);
         }
         else
         {
             Debug.LogError("O prefab 'Decoy' está sem o script Decoy.cs!");
         }
+    }
+
+    // 🌟 MÉTODOS PÚBLICOS PARA APLICAR POWER-UPS
+    public void ApplyPowerUp(float moveSpeed, int maxHealth, int attackDamage, float decoyCooldownReduction, float decoyDuration)
+    {
+        Debug.Log($"📊 STATS ANTES DO POWER-UP:\n" +
+                 $"  • Velocidade: {CurrentMoveSpeed}\n" +
+                 $"  • Vida Máxima: {CurrentMaxHealth}\n" +
+                 $"  • Dano: {CurrentAttackDamage}\n" +
+                 $"  • Cooldown Decoy: {CurrentDecoyCooldown}s\n" +
+                 $"  • Duração Decoy: {CurrentDecoyDuration}s");
+
+        moveSpeedModifier += moveSpeed;
+        maxHealthModifier += maxHealth;
+        attackDamageModifier += attackDamage;
+        decoyCooldownModifier += decoyCooldownReduction;
+        decoyDurationModifier += decoyDuration;
+
+        Debug.Log($"⚡ POWER-UP APLICADO COM SUCESSO!\n" +
+                 $"  • Velocidade: {CurrentMoveSpeed} (+{moveSpeed})\n" +
+                 $"  • Vida Máxima: {CurrentMaxHealth} (+{maxHealth})\n" +
+                 $"  • Dano: {CurrentAttackDamage} (+{attackDamage})\n" +
+                 $"  • Cooldown Decoy: {CurrentDecoyCooldown}s (-{decoyCooldownReduction}s)\n" +
+                 $"  • Duração Decoy: {CurrentDecoyDuration}s (+{decoyDuration}s)");
+
+        // Atualizar vida máxima se houve aumento
+        if (maxHealth > 0)
+        {
+            Health playerHealth = GetComponent<Health>();
+            if (playerHealth != null)
+            {
+                playerHealth.IncreaseMaxHealth(maxHealth);
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ Componente Health do jogador não encontrado!");
+            }
+        }
+    }
+
+    // Método para resetar modificadores (útil para Game Over)
+    public void ResetModifiers()
+    {
+        moveSpeedModifier = 0f;
+        maxHealthModifier = 0;
+        attackDamageModifier = 0;
+        decoyCooldownModifier = 0f;
+        decoyDurationModifier = 0f;
+        Debug.Log("🔄 Modificadores de stats resetados!");
     }
 }
