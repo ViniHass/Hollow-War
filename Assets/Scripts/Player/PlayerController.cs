@@ -204,21 +204,33 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        // 🎯 Calcula a direção do mouse em relação ao jogador
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPosition.z = 0; // Garante que o Z seja 0 (jogo 2D)
+        
+        Vector2 directionToMouse = (mouseWorldPosition - transform.position).normalized;
+
+        // Se o mouse estiver muito perto do jogador (deadzone), usa a última direção
+        if (Vector2.Distance(transform.position, mouseWorldPosition) < 0.5f)
+        {
+            directionToMouse = lastDirection;
+        }
+
         isDaggerOnCooldown = true;
         daggerCooldownTimer = CurrentDaggerCooldown;
-        Debug.Log($"🗡️ Adaga lançada! Cooldown de {CurrentDaggerCooldown}s iniciado.");
+        Debug.Log($"🗡️ Adaga lançada na direção do mouse! Cooldown de {CurrentDaggerCooldown}s iniciado.");
 
-        // Calcula a posição de spawn ligeiramente à frente do player
-        Vector3 spawnPosition = transform.position + (Vector3)lastDirection * daggerSpawnOffset;
+        // Calcula a posição de spawn ligeiramente à frente do player na direção do mouse
+        Vector3 spawnPosition = transform.position + (Vector3)directionToMouse * daggerSpawnOffset;
 
         // Instancia a adaga
         GameObject daggerInstance = Instantiate(daggerPrefab, spawnPosition, Quaternion.identity);
 
-        // Inicializa o script da adaga
+        // Inicializa o script da adaga com a direção do mouse
         DaggerProjectile daggerScript = daggerInstance.GetComponent<DaggerProjectile>();
         if (daggerScript != null)
         {
-            daggerScript.Initialize(lastDirection, stats.daggerSpeed, CurrentDaggerDamage, stats.daggerLifetime);
+            daggerScript.Initialize(directionToMouse, stats.daggerSpeed, CurrentDaggerDamage, stats.daggerLifetime);
         }
         else
         {
