@@ -35,7 +35,7 @@ public class PlayerStats : ScriptableObject
     public float daggerSpeed = 10f;
     
     [Tooltip("Tempo de vida da adaga em segundos antes de desaparecer.")]
-    public float daggerLifetime = 3f;
+    public float daggerLifetime = 2f;
     
     [Tooltip("Cooldown em segundos para lançar outra adaga.")]
     public float daggerCooldown = 2f;
