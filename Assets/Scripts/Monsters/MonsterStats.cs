@@ -10,20 +10,26 @@ public class MonsterStats : ScriptableObject
 
     [Header("AI Behavior")]
     [Tooltip("O raio da zona onde o inimigo detecta o player.")]
-    public float detectionRadius = 10f;
-    [Tooltip("A distância que o inimigo tenta manter do player para atacar.")]
-    public float attackRadius = 1.5f;
+    public float detectionRadius = 8f;
+    
+    [Tooltip("A distância máxima que o inimigo consegue acertar o player.")]
+    public float attackRadius = 1f;
+
+    [Tooltip("A distância que o inimigo vai PARAR do player (deve ser menor ou igual ao Attack Radius).")]
+    public float stopDistance = 0.8f; // <--- NOVO
+
     [Tooltip("Tempo de espera entre os ataques em segundos.")]
     public float attackCooldown = 2f;
 
     [Header("Combat Timings")]
-    [Tooltip("O delay em segundos desde o início do ataque até a hitbox ser ativada.")]
-    public float attackHitboxDelay = 0.2f;
-    [Tooltip("Por quanto tempo a hitbox permanecerá ativa em segundos.")]
+    public float attackHitboxDelay = 0.5f;
     public float attackHitboxActiveTime = 0.3f;
+
+    [Tooltip("Tempo que o inimigo fica parado APÓS o ataque antes de voltar a andar.")]
+    public float attackRecovery = 0.8f;         // <--- ADICIONE ISSO (Sugestão: 0.7s)
 
     [Header("Feedback on Hit")]
     public float knockbackForce = 5f;
-    public float knockbackDuration = 0.2f;
-    public float flashDuration = 0.1f;
+    public float knockbackDuration = 0.3f;
+    public float flashDuration = 0.2f;
 }

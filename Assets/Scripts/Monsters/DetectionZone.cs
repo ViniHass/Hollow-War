@@ -1,98 +1,88 @@
 using UnityEngine;
-using System.Linq; // Necessário para .FirstOrDefault e .OrderBy
+using System.Collections;
+using System.Linq;
 
 public class DetectionZone : MonoBehaviour
 {
     private EnemyAI parentAI;
     private CircleCollider2D detectionCollider;
-
-    // Guarda o que a IA está mirando atualmente
     private Transform currentTarget = null;
+
+    [Header("Settings")]
+    [Tooltip("Quais layers contêm o Player e o Decoy?")]
+    public LayerMask targetLayers; // Configure isso no Inspector!
     
-    // As "tags" que este script procura
-    private LayerMask detectionLayer;
+    [Tooltip("Intervalo em segundos entre as verificações de área (Otimização).")]
+    public float detectionRate = 0.2f; 
 
     void Awake()
     {
         parentAI = GetComponentInParent<EnemyAI>();
         detectionCollider = GetComponent<CircleCollider2D>();
-
-        // Isso cria uma "LayerMask" que só inclui as camadas (layers)
-        // onde o Player e o Decoy estão.
-        // IMPORTANTE: Certifique-se de que seu Player e Decoy
-        // estão em layers como "Default" ou uma layer customizada "Targetable".
-        // Ajuste "Default" se o seu player/decoy estiver em outra layer.
-        detectionLayer = LayerMask.GetMask("Default"); 
-        // Se você criou uma layer "Player" e "Decoy", use:
-        // detectionLayer = LayerMask.GetMask("Player", "Decoy");
     }
 
-    // Update é mais confiável que FixedUpdate para detecção de IA
-    void Update()
+    void Start()
     {
-        // 1. Procura ATIVAMENTE por alvos
-        // Isso é 1000x mais confiável que OnTrigger
+        // Inicia a rotina de detecção otimizada
+        StartCoroutine(DetectionRoutine());
+    }
+
+    // Substituímos o Update por essa Coroutine
+    IEnumerator DetectionRoutine()
+    {
+        WaitForSeconds wait = new WaitForSeconds(detectionRate);
+
+        while (true)
+        {
+            DetectTargets();
+            yield return wait;
+        }
+    }
+
+    private void DetectTargets()
+    {
+        // 1. Procura alvos usando a LayerMask configurada
         Collider2D[] hits = Physics2D.OverlapCircleAll(
             transform.position, 
             detectionCollider.radius, 
-            detectionLayer
+            targetLayers
         );
 
-        // 2. Procura o MELHOR alvo
+        // 2. Lógica de prioridade (Decoy > Player)
         Transform bestTarget = FindBestTarget(hits);
 
-        // 3. OTIMIZAÇÃO: Só avisa a IA se o alvo MUDOU
+        // 3. Atualiza a IA apenas se o alvo mudou
         if (bestTarget != currentTarget)
         {
             if (bestTarget != null)
-            {
                 parentAI.SetTarget(bestTarget);
-            }
             else
-            {
                 parentAI.ClearTarget();
-            }
             
-            currentTarget = bestTarget; // Atualiza o que a IA sabe
+            currentTarget = bestTarget;
         }
     }
 
     private Transform FindBestTarget(Collider2D[] hits)
     {
-        if (hits.Length == 0)
-        {
-            return null; // Ninguém está na zona
-        }
+        if (hits.Length == 0) return null;
 
-        // --- PRIORIDADE 1: DECOY ---
-        // Procura por qualquer colisor com a tag "Decoy"
-        Collider2D decoyHit = hits.FirstOrDefault(hit => hit.CompareTag("Decoy"));
-        if (decoyHit != null)
-        {
-            // Achamos um Decoy, ele tem prioridade máxima
-            return decoyHit.transform; // Retorna o transform do Decoy
-        }
+        // Prioridade 1: Decoy
+        var decoy = hits.FirstOrDefault(h => h.CompareTag("Decoy"));
+        if (decoy) return decoy.transform;
 
-        // --- PRIORIDADE 2: PLAYER ---
-        // Se não achou Decoy, procura pelo Player
-        Collider2D playerHit = hits.FirstOrDefault(hit => hit.CompareTag("Player"));
-        if (playerHit != null)
-        {
-            // Achamos o Player
-            return playerHit.transform.parent; // Retorna o transform PAI do Hurtbox
-        }
+        // Prioridade 2: Player
+        var player = hits.FirstOrDefault(h => h.CompareTag("Player"));
+        // Assume que o colisor é o Hurtbox e pega o pai, ajuste se necessário
+        if (player) return player.transform.parent != null ? player.transform.parent : player.transform;
 
-        // Se chegou aqui, achou colisores, mas nenhum era Player ou Decoy
         return null;
     }
 
-    // Opcional: Desenha o raio de detecção no Editor para debugging
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
-        if (detectionCollider == null)
-            detectionCollider = GetComponent<CircleCollider2D>();
-            
-        Gizmos.color = new Color(1, 0, 0, 0.2f); // Vermelho transparente
+        if (detectionCollider == null) detectionCollider = GetComponent<CircleCollider2D>();
+        Gizmos.color = new Color(1, 1, 0, 0.2f);
         Gizmos.DrawSphere(transform.position, detectionCollider.radius);
     }
 }
