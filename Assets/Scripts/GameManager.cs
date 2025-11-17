@@ -253,12 +253,21 @@ public class GameManager : MonoBehaviour
         hasCheckpoint = false;
         lastCheckpointPosition = Vector3.zero;
 
-        SceneManager.LoadScene(nomeCenaRespawn);
         
+
         if (painelGameOver != null)
         {
             painelGameOver.SetActive(false);
         }
+
+        Instance = null;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        Destroy(gameObject);
+        // ------------------------------------------------------------------
+
+        // 🎯 O NOVO COMPORTAMENTO: CARREGA APENAS A CENA DE ABERTURA.
+        // O script GameIntroTMP irá lidar com o carregamento do Overworld/Pradaria.
+        SceneManager.LoadScene("Abertura");
     }
 
     void OnDestroy()
@@ -266,13 +275,16 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    // GameManager.cs (Update CORRIGIDO)
+
     void Update()
     {
         // Verifica se a tela de Game Over está ativa E se a tecla R foi pressionada
-        // Se o painel estiver ativo, o jogo está pausado (Time.timeScale = 0f)
         if (painelGameOver != null && painelGameOver.activeSelf && Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene("Abertura");
+            // ✅ CORRETO: Chama a função que reseta TUDO (vidas, quests, tempo) 
+            // antes de carregar a cena.
+            ReiniciarJogo();
         }
     }
 }
