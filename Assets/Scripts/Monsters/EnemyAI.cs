@@ -18,12 +18,11 @@ public class EnemyAI : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     
-    // Variáveis de Estado
+    // Estado
     private Vector2 lastDirection = Vector2.down; 
     private Color originalColor;
     private bool canAttack = true;
 
-    // State Machine
     private enum State { Idle, Chasing, CombatIdle, Attacking, Feedback }
     private State currentState;
 
@@ -34,13 +33,9 @@ public class EnemyAI : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
         
-        // Tenta configurar o raio da DetectionZone automaticamente se ela existir
+        // Configura o raio do colisor filho baseado nos stats
         var zone = transform.Find("DetectionZone");
-        if(zone != null) 
-        {
-            var col = zone.GetComponent<CircleCollider2D>();
-            if(col != null) col.radius = stats.detectionRadius;
-        }
+        if(zone) zone.GetComponent<CircleCollider2D>().radius = stats.detectionRadius;
     }
 
     void Start()
@@ -50,10 +45,10 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        // 1. Bloqueio de Ações: Se estiver atacando ou sofrendo knockback, não processa movimento nem decisão.
+        // 1. Bloqueios de Estado: Se estiver atacando ou tomando dano, a física/lógica de movimento não roda.
         if (currentState == State.Attacking || currentState == State.Feedback) return;
 
-        // 2. Sem alvo -> Estado Idle
+        // 2. Sem alvo -> Idle
         if (currentTarget == null)
         {
             if (currentState != State.Idle) EnterIdleState();
@@ -63,28 +58,29 @@ public class EnemyAI : MonoBehaviour
         // 3. Lógica de Combate e Movimento
         float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
 
-        // Verifica se está dentro do raio de ataque
+        // Está dentro da distância de ataque?
         if (distanceToTarget <= stats.attackRadius)
         {
+            // Pode atacar?
             if (canAttack)
             {
-                // Está perto e pode atacar -> INICIA ATAQUE
                 StartCoroutine(AttackSequence());
             }
             else
             {
-                // Está perto mas em Cooldown -> COMBAT IDLE (Encara o player mas fica parado)
+                // --- CORREÇÃO DO BUG ---
+                // Está perto, mas em cooldown. Fica parado encarando (CombatIdle).
                 EnterCombatIdleState();
             }
         }
         else
         {
-            // Está longe -> PERSEGUE
+            // Está longe -> Persegue
             ChaseTarget();
         }
     }
 
-    // --- MÉTODOS DE ESTADO ---
+    // --- ESTADOS E COMPORTAMENTOS ---
 
     private void EnterIdleState()
     {
@@ -95,11 +91,8 @@ public class EnemyAI : MonoBehaviour
 
     private void EnterCombatIdleState()
     {
-        // Se já estiver nesse estado, não faz nada para economizar processamento
-        if (currentState == State.CombatIdle) return;
-
         currentState = State.CombatIdle;
-        rb.linearVelocity = Vector2.zero; // Garante parada total
+        rb.linearVelocity = Vector2.zero; // Garante que pare
         animator.SetBool("isMoving", false);
         
         // Opcional: Virar para o player mesmo parado
@@ -111,59 +104,57 @@ public class EnemyAI : MonoBehaviour
     {
         currentState = State.Chasing;
         
+        // Calcula direção
         Vector2 direction = (currentTarget.position - transform.position).normalized;
+        
+        // Move
         rb.linearVelocity = direction * stats.moveSpeed;
         
+        // Anima
         animator.SetBool("isMoving", true);
         UpdateAnimationFacing(direction);
     }
-
-    // --- SEQUÊNCIA DE ATAQUE ---
 
     private IEnumerator AttackSequence()
     {
         currentState = State.Attacking;
         canAttack = false;
         
-        // 1. Trava Movimento e Animação
+        // Para imediatamente o movimento
         rb.linearVelocity = Vector2.zero;
-        animator.SetBool("isMoving", false);
+        animator.SetBool("isMoving", false); // Garante que a animação de andar pare
 
-        // 2. Define direção e inicia animação
+        // Define direção do ataque
         Vector2 direction = (currentTarget.position - transform.position).normalized;
         UpdateAnimationFacing(direction);
         animator.SetTrigger("Attack");
 
-        // 3. Windup (Delay antes do dano)
+        // Delay antes do Hitbox (Windup)
         yield return new WaitForSeconds(stats.attackHitboxDelay);
 
-        // 4. Ativa Hitbox
+        // Ativa Hitbox
         GameObject hitboxToActivate = GetHitboxForDirection(direction);
         var hitboxScript = hitboxToActivate.GetComponent<EnemyHitbox>();
         if(hitboxScript) hitboxScript.damage = stats.attackDamage;
         
         hitboxToActivate.SetActive(true);
 
-        // 5. Duração da Hitbox Ativa
+        // Tempo da Hitbox ativa
         yield return new WaitForSeconds(stats.attackHitboxActiveTime);
+
         hitboxToActivate.SetActive(false);
 
-        // 6. RECOVERY (Novo): Tempo parado respirando após o ataque
-        // O estado continua 'Attacking', impedindo o Update de mover o personagem.
-        yield return new WaitForSeconds(stats.attackRecovery);
+        // (Opcional) Pequeno delay pós-ataque para ele não "patinar" instantaneamente (Recovery)
+        yield return new WaitForSeconds(0.1f);
 
-        // 7. Libera a IA para perseguir ou decidir o próximo passo
-        currentState = State.Chasing; 
+        currentState = State.Chasing; // Libera o Update para decidir o próximo passo
 
-        // 8. Cooldown (Tempo até poder atacar DE NOVO)
+        // Cooldown
         yield return new WaitForSeconds(stats.attackCooldown);
         canAttack = true;
     }
 
-    // --- MÉTODOS AUXILIARES E INTERFACE PÚBLICA ---
-
-    public void SetTarget(Transform target) { currentTarget = target; }
-    public void ClearTarget() { currentTarget = null; }
+    // --- AUXILIARES ---
 
     private void UpdateAnimationFacing(Vector2 direction)
     {
@@ -180,6 +171,9 @@ public class EnemyAI : MonoBehaviour
         }
     }
     
+    public void SetTarget(Transform target) { currentTarget = target; }
+    public void ClearTarget() { currentTarget = null; }
+
     public void TriggerFeedback(Vector2 knockbackDirection)
     {
         StartCoroutine(FeedbackCoroutine(knockbackDirection));
@@ -187,23 +181,22 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator FeedbackCoroutine(Vector2 knockbackDirection)
     {
+        // Salva o estado anterior se quiser voltar exatamente para ele, 
+        // mas geralmente voltar para Chasing/Idle no Update é mais seguro.
         currentState = State.Feedback;
         
-        // Aplica força
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(knockbackDirection * stats.knockbackForce, ForceMode2D.Impulse);
 
-        // Flash Branco
-        spriteRenderer.color = Color.white;
+        spriteRenderer.color = Color.white; // Flash
         yield return new WaitForSeconds(stats.flashDuration);
         spriteRenderer.color = originalColor;
 
-        // Espera o resto do knockback
         yield return new WaitForSeconds(stats.knockbackDuration - stats.flashDuration);
 
         rb.linearVelocity = Vector2.zero; 
         
-        // Retorna ao combate
+        // Ao terminar o feedback, liberamos o estado para o Update decidir
         if(currentTarget != null)
             currentState = State.Chasing;
         else
@@ -218,12 +211,11 @@ public class EnemyAI : MonoBehaviour
             return direction.y > 0 ? hitboxN : hitboxS;
     }
 
-    // DEBUG VISUAL ATUALIZADO
+    // Debug visual para entender o alcance
     void OnDrawGizmosSelected()
     {
         if(stats != null)
         {
-            // Vermelho = Alcance de Ataque (Onde ele para de andar e bate)
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, stats.attackRadius);
         }

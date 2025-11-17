@@ -15,11 +15,13 @@ MonoBehaviour:
   maxHealth: 3
   moveSpeed: 2
   attackDamage: 1
-  detectionRadius: 10
-  attackRadius: 1.5
+  detectionRadius: 8
+  attackRadius: 1.2
+  stopDistance: 0.8
   attackCooldown: 2
-  attackHitboxDelay: 0.2
+  attackHitboxDelay: 0.4
   attackHitboxActiveTime: 0.3
+  attackRecovery: 0.8
   knockbackForce: 5
-  knockbackDuration: 0.2
+  knockbackDuration: 0.4
   flashDuration: 0.3
