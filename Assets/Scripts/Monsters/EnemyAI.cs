@@ -12,6 +12,11 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private GameObject hitboxE;
     [SerializeField] private GameObject hitboxW;
     
+    [Header("Audio")]
+    [SerializeField] private AudioClip attackSound;
+    [Range(0f, 2f)]
+    [SerializeField] private float attackVolume = 1f;
+    
     // Componentes e Variáveis
     private Transform player; // Apenas uma referência de segurança
     private Transform currentTarget; // O ALVO ATUAL (Decoy ou Player)
@@ -109,6 +114,12 @@ public class EnemyAI : MonoBehaviour
         Vector2 direction = (currentTarget.position - transform.position).normalized;
         UpdateAnimation(direction);
         animator.SetTrigger("Attack");
+
+        // 🎵 Reproduz o som de ataque
+        if (AudioManager.Instance != null && attackSound != null)
+        {
+            AudioManager.Instance.PlaySound(attackSound, transform.position, attackVolume);
+        }
 
         yield return new WaitForSeconds(stats.attackHitboxDelay);
 

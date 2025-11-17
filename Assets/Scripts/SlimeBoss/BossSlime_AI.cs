@@ -12,6 +12,11 @@ public class BossSlime_AI : MonoBehaviour
     [Header("Referências de Setup")]
     public GameObject spikeAttackHitbox; 
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip attackSound;
+    [Range(0f, 2f)]
+    [SerializeField] private float attackVolume = 1f;
+
     // Componentes e Estado
     private Animator animator;
     private BossSlime_Health health;
@@ -87,6 +92,13 @@ public class BossSlime_AI : MonoBehaviour
     private IEnumerator AttackCoroutine()
     {
         animator.SetTrigger("Attack"); 
+        
+        // 🎵 Reproduz o som de ataque do Boss Slime
+        if (AudioManager.Instance != null && attackSound != null)
+        {
+            AudioManager.Instance.PlaySound(attackSound, transform.position, attackVolume);
+        }
+        
         yield return new WaitForSeconds(stats.attackCastTime);
 
         spikeAttackHitbox.SetActive(true); 

@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   stats: {fileID: 11400000, guid: aa51613f2f5174a1d892edb6b63552ae, type: 2}
-  damageSound: {fileID: 8300000, guid: a4e1d461af122f040a5345def420cdd7, type: 3}
+  damageSound: {fileID: 8300000, guid: b50eb5fe9370abf4eaf8383166f6bb34, type: 3}
   damageVolume: 1
 --- !u!114 &3723362415846141121
 MonoBehaviour:
@@ -284,6 +284,8 @@ MonoBehaviour:
   hitboxS: {fileID: 5749936563578757492}
   hitboxE: {fileID: 4434178656257139400}
   hitboxW: {fileID: 7808625513304988821}
+  attackSound: {fileID: 8300000, guid: f803af8b44c512046893b28dfb3a9302, type: 3}
+  attackVolume: 1
 --- !u!95 &8771977944143754833
 Animator:
   serializedVersion: 7

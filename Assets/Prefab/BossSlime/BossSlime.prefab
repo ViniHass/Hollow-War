@@ -209,6 +209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossSlime_AI
   stats: {fileID: 11400000, guid: d0fbfc0aa879bfc46a8ea52983ac6fef, type: 2}
   spikeAttackHitbox: {fileID: 8002114840642384057}
+  attackSound: {fileID: 8300000, guid: b1582d68e41bac143add74c8fd2992bd, type: 3}
+  attackVolume: 1.376
 --- !u!1 &5873381671212819742
 GameObject:
   m_ObjectHideFlags: 0
