@@ -9,6 +9,11 @@ public class Health : MonoBehaviour
     public Transform healthBar;
     public GameObject healthBarObject;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip damageSound;
+    [Range(0f, 2f)]
+    [SerializeField] private float damageVolume = 1f;
+
     private Vector3 healthBarScale;
     private float healthPercent;
 
@@ -35,6 +40,12 @@ public class Health : MonoBehaviour
     {
         currentHealth -= damage;
         UpdateHealthbar();
+
+        // Reproduz o som de dano com o volume ajustável
+        if (AudioManager.Instance != null && damageSound != null)
+        {
+            AudioManager.Instance.PlaySound(damageSound, transform.position, damageVolume);
+        }
 
         if (currentHealth <= 0)
         {

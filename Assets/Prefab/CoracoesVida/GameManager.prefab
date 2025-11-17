@@ -129,6 +129,11 @@ MonoBehaviour:
   coracaoVazioSprite: {fileID: 480950568797420178, guid: 21c499c83b68515439162b1e7ea62ca2, type: 3}
   painelGameOver: {fileID: 5392205739329449161}
   nomeCenaRespawn: Overworld
+  respawnOffset: {x: 0, y: 2, z: 0}
+  tempoAntesRespawn: 1
+  respawnSound: {fileID: 8300000, guid: 48b7b0cc38cde4afc8d52841566d9677, type: 3}
+  respawnVolume: 1
+  player: {fileID: 0}
 --- !u!1 &1965153107452375123
 GameObject:
   m_ObjectHideFlags: 0

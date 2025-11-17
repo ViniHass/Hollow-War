@@ -749,6 +749,7 @@ GameObject:
   - component: {fileID: 3481258148800909958}
   - component: {fileID: 4497897643368438276}
   - component: {fileID: 3045706733333169039}
+  - component: {fileID: -6771113708245511920}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -938,6 +939,8 @@ MonoBehaviour:
   attackSound: {fileID: 0}
   footstepLoop: {fileID: 0}
   footstepVolume: 0.5
+  decoyPrefab: {fileID: 0}
+  decoySpawnOffset: 1
 --- !u!114 &4868371261177352467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -990,6 +993,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5baff1b1987c83a4592935c7056cd157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
+--- !u!114 &-6771113708245511920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8077884366033280337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7ab9ad9a1bd79143ab346f89e226233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  masterVolume: 1
+  sfxVolume: 1
 --- !u!1 &8732055200665649707
 GameObject:
   m_ObjectHideFlags: 0

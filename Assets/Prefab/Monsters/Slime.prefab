@@ -417,6 +417,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   stats: {fileID: 11400000, guid: 2f8232bd335484d59b112ff7d96ae658, type: 2}
+  damageSound: {fileID: 8300000, guid: f862179e1511e7b4fb809b83d96557e3, type: 3}
+  damageVolume: 1
 --- !u!114 &4934433583668317630
 MonoBehaviour:
   m_ObjectHideFlags: 0
