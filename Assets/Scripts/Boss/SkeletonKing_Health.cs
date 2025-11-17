@@ -4,7 +4,9 @@ using UnityEngine;
 public class SkeletonKing_Health : MonoBehaviour
 {
     public BossStats stats; 
-    public GameObject barrierVisual; 
+    public GameObject barrierVisual;
+    public GameObject victoryScreen;
+
 
     private int currentHealth;
     private bool isInvincible = false;
@@ -72,7 +74,13 @@ public class SkeletonKing_Health : MonoBehaviour
         {
             hurtbox.gameObject.SetActive(false);
         }
-        
-        Destroy(gameObject, 5.0f); 
+
+        if (victoryScreen != null)
+        {
+            victoryScreen.SetActive(true);
+        }
+        // ----------------------
+
+        Destroy(gameObject, 5.0f);
     }
 }
