@@ -155,6 +155,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // 🌟 NOVO MÉTODO: Garante que o Player não esteja preso em nenhum estado 🌟
+    public void ResetStateOnRespawn()
+    {
+        // 1. Limpa o estado de ataque
+        isAttacking = false;
+        
+        // 2. Limpa o input de movimento
+        movementInput = Vector2.zero;
+        
+        // 3. Garante que qualquer hitbox ativa seja desativada
+        if (activeHitbox != null && activeHitbox.gameObject.activeSelf)
+        {
+            activeHitbox.gameObject.SetActive(false);
+        }
+        
+        // 4. Garante que o som de passo seja parado
+        if (footstepAudioSource.isPlaying)
+        {
+            footstepAudioSource.Stop();
+        }
+        
+        // 5. Opcional: Chama o evento de movimento com zero para atualizar a animação para Idle
+        OnMove?.Invoke(Vector2.zero);
+
+        Debug.Log("🔄 PlayerController: Estados de ação resetados para o Respawn.");
+    }
+
     void FixedUpdate()
     {
         // USA O STAT MODIFICADO

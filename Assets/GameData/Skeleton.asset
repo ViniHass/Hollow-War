@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b264eb55a9826ed4f884d976766d5837, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: Assembly-CSharp::MonsterStats
-  maxHealth: 3
+  maxHealth: 2
   moveSpeed: 4
-  attackDamage: 2
-  detectionRadius: 8
+  attackDamage: 1
+  detectionRadius: 6
   attackRadius: 1
   stopDistance: 0.8
   attackCooldown: 2

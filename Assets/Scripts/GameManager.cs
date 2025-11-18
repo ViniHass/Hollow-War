@@ -118,49 +118,52 @@ public class GameManager : MonoBehaviour
         StartCoroutine(RespawnRoutine());
     }
 
-    IEnumerator RespawnRoutine()
+  IEnumerator RespawnRoutine()
+{
+    if (player == null)
     {
-        if (player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player");
-            if (player == null) yield break;
-        }
-        
-        // Desativa o Player imediatamente
-        player.SetActive(false); 
-        
-        yield return new WaitForSeconds(tempoAntesRespawn);
-
-        // Se houver um checkpoint ativo, reposiciona o Player
-        if (hasCheckpoint)
-        {
-            Health healthComponent = player.GetComponent<Health>() ?? player.GetComponentInChildren<Health>();
-
-            Vector3 respawnPos = lastCheckpointPosition + respawnOffset;
-            
-            player.transform.position = respawnPos;
-            player.SetActive(true);
-
-            // 🎵 Reproduz o som de respawn DEPOIS de reativar o player
-            if (AudioManager.Instance != null && respawnSound != null)
-            {
-                AudioManager.Instance.PlaySound(respawnSound, player.transform.position, respawnVolume);
-            }
-
-            if (healthComponent != null)
-            {
-                healthComponent.RestoreHealthFull();
-            }
-            
-            Debug.Log($"→ Respawnando no checkpoint: {lastCheckpointPosition}");
-        }
-        else
-        {
-            // 🚨 Ação sem checkpoint: Recarrega a cena de respawn (posição de spawn padrão)
-            Debug.LogWarning("⚠ Nenhum checkpoint ativo. Recarregando cena de spawn.");
-            SceneManager.LoadScene(nomeCenaRespawn);
-        }
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) yield break;
     }
+    
+    // Desativa o Player imediatamente
+    player.SetActive(false); 
+    
+    yield return new WaitForSeconds(tempoAntesRespawn);
+
+    // Se houver um checkpoint ativo, reposiciona o Player
+    if (hasCheckpoint)
+    {
+        Health healthComponent = player.GetComponent<Health>() ?? player.GetComponentInChildren<Health>();
+        PlayerController playerController = player.GetComponent<PlayerController>(); // 🌟 OBTÉM A REFERÊNCIA 🌟
+
+        Vector3 respawnPos = lastCheckpointPosition + respawnOffset;
+        
+        player.transform.position = respawnPos;
+        
+        // 🌟 CHAMA O RESET DE ESTADO ANTES DE REATIVAR 🌟
+        if (playerController != null)
+        {
+            playerController.ResetStateOnRespawn();
+        }
+
+        player.SetActive(true);
+
+        // 🎵 Reproduz o som de respawn DEPOIS de reativar o player
+        if (AudioManager.Instance != null && respawnSound != null)
+        {
+            AudioManager.Instance.PlaySound(respawnSound, player.transform.position, respawnVolume);
+        }
+
+        if (healthComponent != null)
+        {
+            healthComponent.RestoreHealthFull();
+        }
+        
+        Debug.Log($"→ Respawnando no checkpoint: {lastCheckpointPosition}");
+    }
+    // ... (restante do código)
+}
 
     void AtualizarUI()
     {
