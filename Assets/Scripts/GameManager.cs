@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
-             UIManager.Instance.ShowGlobalMessage("Fale com o aldeão, os NPC's irão guiar você", 5.0f);
+          
         }
         else
         {
@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
             SetCheckpoint(player.transform.position);
             Debug.Log("✓ Checkpoint inicial (posição de spawn) definido na nova cena.");
         }
+        UIManager.Instance.ShowGlobalMessage("Fale com o aldeão, os NPC's irão guiar você", 5.0f);
     }
 
     public void SetCheckpoint(Vector3 position)
