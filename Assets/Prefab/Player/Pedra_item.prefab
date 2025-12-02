@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2853476577335155890}
   - component: {fileID: 6928395023592734794}
   m_Layer: 0
-  m_Name: Pedra1
+  m_Name: Pedra_item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 5734497216384065560}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.61, y: 1.09, z: 0}
-  m_LocalScale: {x: 0.4504562, y: 0.44195694, z: 1}
+  m_LocalPosition: {x: -9.0543, y: 1.2074, z: 0}
+  m_LocalScale: {x: 1.350383, y: 1.3567667, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 1744303419
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8419683130578821837, guid: 9601a57fb449d944080d3ae0b159fb85, type: 3}
+  m_Sprite: {fileID: -1898743123059675536, guid: 2d7ae8557e66794439cff89c0bbcef99, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,7 +130,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 0.48, y: 0.44}
     newSize: {x: 6.4, y: 6.4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
