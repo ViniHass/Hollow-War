@@ -62,6 +62,25 @@ public class SkeletonKing_Health : MonoBehaviour
         if (barrierVisual != null) { barrierVisual.SetActive(false); }
     }
 
+   
+    private IEnumerator ShowScreenAndHide(float duration)
+    {
+        // Ativa a tela
+        if (victoryScreen != null)
+        {
+            victoryScreen.SetActive(true);
+        }
+
+        // Espera pelo tempo (3.0 segundos)
+        yield return new WaitForSeconds(duration);
+
+        // Desativa a tela
+        if (victoryScreen != null)
+        {
+            victoryScreen.SetActive(false);
+        }
+    }
+
     void Die()
     {
         Debug.Log("Boss Morreu!");
@@ -74,13 +93,9 @@ public class SkeletonKing_Health : MonoBehaviour
         {
             hurtbox.gameObject.SetActive(false);
         }
+        StartCoroutine(ShowScreenAndHide(3.0f));
 
-        if (victoryScreen != null)
-        {
-            victoryScreen.SetActive(true);
-        }
-        // ----------------------
-
+        // Destrói o Boss 5 segundos depois, dando tempo para a animação.
         Destroy(gameObject, 5.0f);
     }
 }

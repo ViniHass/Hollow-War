@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124675006908aee45b275b04ea0487b7, type: 3}
   m_Name: DefaultPlayerStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  moveSpeed: 5
+  moveSpeed: 30
   defaultMoveSpeed: 5
   maxHealth: 30
   defaultMaxHealth: 30

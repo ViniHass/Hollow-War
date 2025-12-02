@@ -153,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1960, y: 1175}
+  m_AnchoredPosition: {x: 62.319, y: -30.3273}
+  m_SizeDelta: {x: 2196.9373, y: 997.8395}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &172087364
 MonoBehaviour:
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8266631362782695755, guid: 2357d2adf07744a4391eeb45bd7cd46f, type: 3}
+  m_Sprite: {fileID: 4763415714078566847, guid: 01456226ddd9ee741ae3a73d22c15067, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -239,12 +239,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a3d3d3515914c488320345decf6780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameIntroTMP
+  painelComBotoes: {fileID: 769914978}
   textoInicial: {fileID: 875083961}
   textoPrologo: {fileID: 527189874}
   painelFinal: {fileID: 769914978}
   audioIntro: {fileID: 1202612886}
-  tempoTextoInicial: 5
-  tempoPrologo: 18
+  tempoTextoInicial: 2
+  tempoPrologo: 1
 --- !u!1 &527189872
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,7 +815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 329, y: -89}
+  m_AnchoredPosition: {x: 400, y: -81}
   m_SizeDelta: {x: 331, y: 329}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &967034062
@@ -946,7 +947,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -385, y: -88}
+  m_AnchoredPosition: {x: -375, y: -96}
   m_SizeDelta: {x: 331, y: 329}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1176721919

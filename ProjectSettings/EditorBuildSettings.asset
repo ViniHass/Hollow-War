@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Overworld.unity
     guid: bd3e8cbb68b1f4757b0a4c53062f676a
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Pradaria.unity
     guid: 351b9737783442d438b29d69eb31e121
   m_configObjects:
