@@ -34,7 +34,7 @@ O objetivo do jogo é demonstrar, na prática, a implementação de sistemas fun
 
   * Git e GitHub
   * Assets visuais e sonoros integrados
-  * Configuração adequada de versionamento para Unity (meta files, text serialization, gitignore)
+  * Configuração apropriada de versionamento para Unity (meta files, text serialization, gitignore)
 
 ---
 
@@ -42,10 +42,11 @@ O objetivo do jogo é demonstrar, na prática, a implementação de sistemas fun
 
 ### ▶️ Através da Build
 
-1. Acesse a aba **Releases**, caso disponível.
-2. Baixe a versão mais recente.
-3. Extraia o arquivo.
-4. Execute o arquivo principal (`HollowWar.exe`, por exemplo).
+[https://drive.google.com/file/d/18QQcBeuQBJNaHnuwagwIZeZ3Fh9eO9VD/view?usp=drive_link](https://drive.google.com/file/d/18QQcBeuQBJNaHnuwagwIZeZ3Fh9eO9VD/view?usp=drive_link)
+
+1. Baixe o arquivo
+2. Extraia a pasta
+3. Execute o arquivo principal (`HollowWar.exe`, por exemplo)
 
 ### 🧑‍💻 Através do Código-Fonte
 
@@ -54,19 +55,17 @@ git clone https://github.com/SEU-USUARIO/Hollow-War.git
 cd Hollow-War
 ```
 
-1. Abra o projeto no Unity.
-2. Aguarde a importação dos assets.
-3. Abra a cena principal (geralmente em *Assets/Scenes*).
-4. Clique em **Play**.
+1. Abra o projeto no Unity
+2. Aguarde a importação dos assets
+3. Abra a cena principal (geralmente em *Assets/Scenes*)
+4. Clique em **Play**
 
 ---
 
 ## 🗂️ Estrutura Geral do Projeto
 
-A organização do projeto segue o padrão recomendado para projetos Unity:
-
 ```
-Hollow-War/
+Hollow War/
 ├── Assets/
 │   ├── Scenes/       -> Cenas principais do jogo
 │   ├── Scripts/      -> Scripts C# do projeto
@@ -89,7 +88,7 @@ Hollow-War/
 * Desenvolver um protótipo funcional em Unity
 * Trabalhar mecânicas centrais de gameplay top-down
 * Aprender boas práticas na organização de projetos Unity
-* Criar material de portfólio para carreira na área de desenvolvimento
+* Criar material de portfólio para carreira no desenvolvimento de jogos
 
 ---
 
