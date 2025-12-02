@@ -139,7 +139,8 @@ public class PlayerController : MonoBehaviour
 
         OnMove?.Invoke(movementInput);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        // 🎯 MUDANÇA: Ataque com clique esquerdo do mouse
+        if (Input.GetMouseButtonDown(0))
         {
             StartCoroutine(AttackCoroutine());
         }
@@ -149,7 +150,8 @@ public class PlayerController : MonoBehaviour
             UseDecoy();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !isDaggerOnCooldown)
+        // 🎯 Adaga com clique direito do mouse
+        if (Input.GetMouseButtonDown(1) && !isDaggerOnCooldown)
         {
             ThrowDagger();
         }
@@ -191,7 +193,20 @@ public class PlayerController : MonoBehaviour
     private IEnumerator AttackCoroutine()
     {
         isAttacking = true;
-        OnAttack?.Invoke(lastDirection);
+        
+        // 🎯 MUDANÇA: Calcula a direção do mouse em relação ao jogador
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPosition.z = 0; // Garante que o Z seja 0 (jogo 2D)
+        
+        Vector2 attackDirection = (mouseWorldPosition - transform.position).normalized;
+        
+        // Se o mouse estiver muito perto do jogador (deadzone), usa a última direção
+        if (Vector2.Distance(transform.position, mouseWorldPosition) < 0.5f)
+        {
+            attackDirection = lastDirection;
+        }
+        
+        OnAttack?.Invoke(attackDirection);
 
         if (AudioManager.Instance != null && attackSound != null)
         {
@@ -199,7 +214,7 @@ public class PlayerController : MonoBehaviour
         }
 
         yield return new WaitForSeconds(stats.attackHitboxDelay);
-        GameObject hitboxToActivate = GetHitboxForDirection(lastDirection);
+        GameObject hitboxToActivate = GetHitboxForDirection(attackDirection);
         if (hitboxToActivate != null)
         {
             hitboxToActivate.SetActive(true);
