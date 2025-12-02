@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac54dab5799946a9a741d3196f479cd, type: 3}
+  m_Name: Dialogue_QuestStart
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  talkScript:
+  - name: Zumbi
+    text: "Ol\xE1, meu pequeno amigo, meu corpo est\xE1 consumido pela guerra, preciso
+      de semente dos goblins para sobreviver"
+  - name: Goblin
+    text: "Cara, ainda bem que eu n\xE3o sou voc\xEA !"
+  - name: Goblin
+    text: Mas vou quebrar essa, onde eu encontro essa erva ai?
+  - name: Zumbi
+    text: "V\xE1 at\xE9 a outra parte do cemit\xE9rio, essa semente \xE9 vigiada
+      por slimes de fogo, tome cuidado, meu filho"
+  - name: Goblin
+    text: "Seu filho \xE9 outro, larga de papo"
+  - name: Goblin
+    text: "Vou l\xE1 porque voc\xEA ja ta com o p\xE9 na cova"

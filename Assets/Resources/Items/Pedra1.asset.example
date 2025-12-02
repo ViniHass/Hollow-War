@@ -1,0 +1,21 @@
+// Este é um exemplo de como criar o item "pedra1" no Unity Editor
+// 
+// PASSOS PARA CRIAR O ITEM:
+// 
+// 1. No Unity Editor, clique com o botão direito na pasta "Assets"
+// 2. Navegue para: Create > Inventory > Item Data
+// 3. Nomeie o arquivo como "Pedra1"
+// 4. No Inspector, configure:
+//    - Item Name: "pedra1"
+//    - Description: "Uma pedra que pode ser lançada contra inimigos"
+// 
+// 5. No PlayerController (no Inspector):
+//    - Arraste o asset "Pedra1" para o campo "Required Stone Item"
+// 
+// 6. Crie ItemPickup GameObjects espalhados pelo mapa:
+//    - Crie um GameObject vazio
+//    - Adicione um SpriteRenderer com a sprite da pedra
+//    - Adicione um Collider2D (marque como Trigger)
+//    - Adicione o componente ItemPickup
+//    - No componente ItemPickup, arraste o asset "Pedra1" para "Item To Give"
+//    - Salve como Prefab para reutilizar pelo mapa

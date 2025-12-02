@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac54dab5799946a9a741d3196f479cd, type: 3}
+  m_Name: Dialogue_QuestStart
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  talkScript:
+  - name: "Alde\xE3o"
+    text: "Ol\xE1 guerreiro, voc\xEA parece forte, preciso de um dente localizado
+      no morro dos roedores para a constru\xE7\xE3o de uma armadilha"
+  - name: Goblin
+    text: Claro que posso te ajudar
+  - name: "Alde\xE3o"
+    text: "Ela est\xE1 localizada no centro da ilha, mas cuidado com os ratos, eles
+      s\xE3o assustadores"
+  - name: Goblin
+    text: Deixa com o pai!

@@ -1,0 +1,1181 @@
+fileFormatVersion: 2
+guid: 95f57e34816d4574a80299ea9887c8e9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5926324425654468905
+    second: Boss-Attack S1-Sheet_0
+  - first:
+      213: -6595559311859612145
+    second: Boss-Attack S1-Sheet_1
+  - first:
+      213: 499760933520484963
+    second: Boss-Attack S1-Sheet_2
+  - first:
+      213: 5660462541223632343
+    second: Boss-Attack S1-Sheet_3
+  - first:
+      213: -2210644868791161427
+    second: Boss-Attack S1-Sheet_4
+  - first:
+      213: 8322290787230270893
+    second: Boss-Attack S1-Sheet_5
+  - first:
+      213: 5685011638180032175
+    second: Boss-Attack S1-Sheet_6
+  - first:
+      213: -8583930668235823699
+    second: Boss-Attack S1-Sheet_7
+  - first:
+      213: -6463933876560093929
+    second: Boss-Attack S1-Sheet_8
+  - first:
+      213: -4283224171424151571
+    second: Boss-Attack S1-Sheet_9
+  - first:
+      213: 4215835699537746334
+    second: Boss-Attack S1-Sheet_10
+  - first:
+      213: 5112509123734947488
+    second: Boss-Attack S1-Sheet_11
+  - first:
+      213: 1323594622272137002
+    second: Boss-Attack S1-Sheet_12
+  - first:
+      213: 8069965934000088907
+    second: Boss-Attack S1-Sheet_13
+  - first:
+      213: -3971943409443558916
+    second: Boss-Attack S1-Sheet_14
+  - first:
+      213: -8075524314191450162
+    second: Boss-Attack S1-Sheet_15
+  - first:
+      213: -3939959046882493801
+    second: Boss-Attack S1-Sheet_16
+  - first:
+      213: 2826336160449801127
+    second: Boss-Attack S1-Sheet_17
+  - first:
+      213: 4889560185368890224
+    second: Boss-Attack S1-Sheet_18
+  - first:
+      213: -4898162974192165521
+    second: Boss-Attack S1-Sheet_19
+  - first:
+      213: 2304618416168709172
+    second: Boss-Attack S1-Sheet_20
+  - first:
+      213: -4935848200463043728
+    second: Boss-Attack S1-Sheet_21
+  - first:
+      213: -8991536959289626669
+    second: Boss-Attack S1-Sheet_22
+  - first:
+      213: 8882192346670111198
+    second: Boss-Attack S1-Sheet_23
+  - first:
+      213: 4630026860064385337
+    second: Boss-Attack S1-Sheet_24
+  - first:
+      213: 8776657458512509747
+    second: Boss-Attack S1-Sheet_25
+  - first:
+      213: 594454279059398941
+    second: Boss-Attack S1-Sheet_26
+  - first:
+      213: 7496087898550421918
+    second: Boss-Attack S1-Sheet_27
+  - first:
+      213: -649736922933849269
+    second: Boss-Attack S1-Sheet_28
+  - first:
+      213: -2307331144237200617
+    second: Boss-Attack S1-Sheet_29
+  - first:
+      213: 1389929064253438294
+    second: Boss-Attack S1-Sheet_30
+  - first:
+      213: -2210164346206726551
+    second: Boss-Attack S1-Sheet_31
+  - first:
+      213: 4600329748693050492
+    second: Boss-Attack S1-Sheet_32
+  - first:
+      213: -6434210313415981872
+    second: Boss-Attack S1-Sheet_33
+  - first:
+      213: -1913825061526675675
+    second: Boss-Attack S1-Sheet_34
+  - first:
+      213: 197098348872878633
+    second: Boss-Attack S1-Sheet_35
+  - first:
+      213: -2237806276834009698
+    second: Boss-Attack S1-Sheet_36
+  - first:
+      213: 8113386008851596429
+    second: Boss-Attack S1-Sheet_37
+  - first:
+      213: -8652974884706541132
+    second: Boss-Attack S1-Sheet_38
+  - first:
+      213: -906492699786846287
+    second: Boss-Attack S1-Sheet_39
+  - first:
+      213: 440789059650231186
+    second: Boss-Attack S1-Sheet_40
+  - first:
+      213: 588662005448861778
+    second: Boss-Attack S1-Sheet_41
+  - first:
+      213: 7057500298717746148
+    second: Boss-Attack S1-Sheet_42
+  - first:
+      213: 2917501555584314911
+    second: Boss-Attack S1-Sheet_43
+  - first:
+      213: -7594204962963860722
+    second: Boss-Attack S1-Sheet_44
+  - first:
+      213: -5781420366556739154
+    second: Boss-Attack S1-Sheet_45
+  - first:
+      213: 2490864977386705085
+    second: Boss-Attack S1-Sheet_46
+  - first:
+      213: 7491523471029583097
+    second: Boss-Attack S1-Sheet_47
+  - first:
+      213: -1866743156329802133
+    second: Boss-Attack S1-Sheet_48
+  - first:
+      213: -5286814456000459425
+    second: Boss-Attack S1-Sheet_49
+  - first:
+      213: -7972325366821671276
+    second: Boss-Attack S1-Sheet_50
+  - first:
+      213: -3805647684807770788
+    second: Boss-Attack S1-Sheet_51
+  - first:
+      213: 7332927222617795559
+    second: Boss-Attack S1-Sheet_52
+  - first:
+      213: 3291092220425156014
+    second: Boss-Attack S1-Sheet_53
+  - first:
+      213: -42217401270032585
+    second: Boss-Attack S1-Sheet_54
+  - first:
+      213: -2871574046221394829
+    second: Boss-Attack S1-Sheet_55
+  - first:
+      213: -8494774402933755210
+    second: Boss-Attack S1-Sheet_56
+  - first:
+      213: 8321527459378340512
+    second: Boss-Attack S1-Sheet_57
+  - first:
+      213: -5629111569337343740
+    second: Boss-Attack S1-Sheet_58
+  - first:
+      213: 5986325036689712087
+    second: Boss-Attack S1-Sheet_59
+  - first:
+      213: -8685066242077123554
+    second: Boss-Attack S1-Sheet_60
+  - first:
+      213: -8377410732020749290
+    second: Boss-Attack S1-Sheet_61
+  - first:
+      213: 2048700587170643489
+    second: Boss-Attack S1-Sheet_62
+  - first:
+      213: -1697091806588645870
+    second: Boss-Attack S1-Sheet_63
+  - first:
+      213: 5874947826408780766
+    second: Boss-Attack S1-Sheet_64
+  - first:
+      213: 601030949781386814
+    second: Boss-Attack S1-Sheet_65
+  - first:
+      213: -9101781538758532260
+    second: Boss-Attack S1-Sheet_66
+  - first:
+      213: -82358608877821046
+    second: Boss-Attack S1-Sheet_67
+  - first:
+      213: -131226590617735012
+    second: Boss-Attack S1-Sheet_68
+  - first:
+      213: 5530406746356111498
+    second: Boss-Attack S1-Sheet_69
+  - first:
+      213: 6112137548911780578
+    second: Boss-Attack S1-Sheet_70
+  - first:
+      213: 5934463642771514876
+    second: Boss-Attack S1-Sheet_71
+  - first:
+      213: 874642265774609880
+    second: Boss-Attack S1-Sheet_72
+  - first:
+      213: -6177354270144759401
+    second: Boss-Attack S1-Sheet_73
+  - first:
+      213: 2097459907290152912
+    second: Boss-Attack S1-Sheet_74
+  - first:
+      213: -136622079293602035
+    second: Boss-Attack S1-Sheet_75
+  - first:
+      213: 3315594846648392041
+    second: Boss-Attack S1-Sheet_76
+  - first:
+      213: 595228993934816740
+    second: Boss-Attack S1-Sheet_77
+  - first:
+      213: -5140970045060519878
+    second: Boss-Attack S1-Sheet_78
+  - first:
+      213: 2879750022396987702
+    second: Boss-Attack S1-Sheet_79
+  - first:
+      213: 1129512533218034708
+    second: Boss-Attack S1-Sheet_80
+  - first:
+      213: -2880787989188943369
+    second: Boss-Attack S1-Sheet_81
+  - first:
+      213: -7413929208932094094
+    second: Boss-Attack S1-Sheet_82
+  - first:
+      213: -1899409153253134491
+    second: Boss-Attack S1-Sheet_83
+  - first:
+      213: 4543035644691655205
+    second: Boss-Attack S1-Sheet_84
+  - first:
+      213: -3294854989343988074
+    second: Boss-Attack S1-Sheet_85
+  - first:
+      213: 1921634852747242849
+    second: Boss-Attack S1-Sheet_86
+  - first:
+      213: -9034329314472381949
+    second: Boss-Attack S1-Sheet_87
+  - first:
+      213: 7938786989869257484
+    second: Boss-Attack S1-Sheet_88
+  - first:
+      213: -6599358771852488668
+    second: Boss-Attack S1-Sheet_89
+  - first:
+      213: -2491082832645072871
+    second: Boss-Attack S1-Sheet_90
+  - first:
+      213: -3527311434513492950
+    second: Boss-Attack S1-Sheet_91
+  - first:
+      213: -5795800110005078745
+    second: Boss-Attack S1-Sheet_92
+  - first:
+      213: 2097891638013927706
+    second: Boss-Attack S1-Sheet_93
+  - first:
+      213: 133442210239715964
+    second: Boss-Attack S1-Sheet_94
+  - first:
+      213: -775713682990323217
+    second: Boss-Attack S1-Sheet_95
+  - first:
+      213: 6844010184950335518
+    second: Boss-Attack S1-Sheet_96
+  - first:
+      213: 5327681099768431531
+    second: Boss-Attack S1-Sheet_97
+  - first:
+      213: 3833007772362716885
+    second: Boss-Attack S1-Sheet_98
+  - first:
+      213: 9047509987326648291
+    second: Boss-Attack S1-Sheet_99
+  - first:
+      213: 3369275145901551182
+    second: Boss-Attack S1-Sheet_100
+  - first:
+      213: -8863138675569170462
+    second: Boss-Attack S1-Sheet_101
+  - first:
+      213: 1600044741176298263
+    second: Boss-Attack S1-Sheet_102
+  - first:
+      213: -6957346831849456021
+    second: Boss-Attack S1-Sheet_103
+  - first:
+      213: 8557355937108313316
+    second: Boss-Attack S1-Sheet_104
+  - first:
+      213: 2496320142946348868
+    second: Boss-Attack S1-Sheet_105
+  - first:
+      213: 5551820436092532200
+    second: Boss-Attack S1-Sheet_106
+  - first:
+      213: -3343693669413015124
+    second: Boss-Attack S1-Sheet_107
+  - first:
+      213: -5541744573123048647
+    second: Boss-Attack S1-Sheet_108
+  - first:
+      213: 2982233632819508384
+    second: Boss-Attack S1-Sheet_109
+  - first:
+      213: 5054890635378638318
+    second: Boss-Attack S1-Sheet_110
+  - first:
+      213: 2694958410361558648
+    second: Boss-Attack S1-Sheet_111
+  - first:
+      213: -9106404204853727539
+    second: Boss-Attack S1-Sheet_112
+  - first:
+      213: -8802721003728525932
+    second: Boss-Attack S1-Sheet_113
+  - first:
+      213: -684985817539873878
+    second: Boss-Attack S1-Sheet_114
+  - first:
+      213: -727420132149351246
+    second: Boss-Attack S1-Sheet_115
+  - first:
+      213: 6043406455911384471
+    second: Boss-Attack S1-Sheet_116
+  - first:
+      213: 3757149329405201213
+    second: Boss-Attack S1-Sheet_117
+  - first:
+      213: 2242410666816888458
+    second: Boss-Attack S1-Sheet_118
+  - first:
+      213: -4244126218531940032
+    second: Boss-Attack S1-Sheet_119
+  - first:
+      213: 8752104567748360909
+    second: Boss-Attack S1-Sheet_120
+  - first:
+      213: 6502680472157814594
+    second: Boss-Attack S1-Sheet_121
+  - first:
+      213: 9212204348358344750
+    second: Boss-Attack S1-Sheet_122
+  - first:
+      213: -3484684026364949097
+    second: Boss-Attack S1-Sheet_123
+  - first:
+      213: 6794037764155956139
+    second: Boss-Attack S1-Sheet_124
+  - first:
+      213: 742128490683591103
+    second: Boss-Attack S1-Sheet_125
+  - first:
+      213: 7229879892757522399
+    second: Boss-Attack S1-Sheet_126
+  - first:
+      213: 5417462007155960775
+    second: Boss-Attack S1-Sheet_127
+  - first:
+      213: -2654348073717335695
+    second: Boss-Attack S1-Sheet_128
+  - first:
+      213: -6610576031501385032
+    second: Boss-Attack S1-Sheet_129
+  - first:
+      213: 1160048370343718063
+    second: Boss-Attack S1-Sheet_130
+  - first:
+      213: 5042736245476853538
+    second: Boss-Attack S1-Sheet_131
+  - first:
+      213: 2637019772080746370
+    second: Boss-Attack S1-Sheet_132
+  - first:
+      213: -6670671552360547693
+    second: Boss-Attack S1-Sheet_133
+  - first:
+      213: -5516917068574462367
+    second: Boss-Attack S1-Sheet_134
+  - first:
+      213: 7309170860610171595
+    second: Boss-Attack S1-Sheet_135
+  - first:
+      213: 3471215194073001514
+    second: Boss-Attack S1-Sheet_136
+  - first:
+      213: -1320041158730582936
+    second: Boss-Attack S1-Sheet_137
+  - first:
+      213: 8943436755219748047
+    second: Boss-Attack S1-Sheet_138
+  - first:
+      213: -4476699699337374844
+    second: Boss-Attack S1-Sheet_139
+  - first:
+      213: 2343654570258234302
+    second: Boss-Attack S1-Sheet_140
+  - first:
+      213: 5798072209536675954
+    second: Boss-Attack S1-Sheet_141
+  - first:
+      213: -8077794950130423228
+    second: Boss-Attack S1-Sheet_142
+  - first:
+      213: -3596772864907433935
+    second: Boss-Attack S1-Sheet_143
+  - first:
+      213: 2765618516615864039
+    second: Boss-Attack S1-Sheet_144
+  - first:
+      213: -1815907083157924332
+    second: Boss-Attack S1-Sheet_145
+  - first:
+      213: -3757249243918102627
+    second: Boss-Attack S1-Sheet_146
+  - first:
+      213: -7270796493477612577
+    second: Boss-Attack S1-Sheet_147
+  - first:
+      213: 6570084448984643346
+    second: Boss-Attack S1-Sheet_148
+  - first:
+      213: -4085955075532834739
+    second: Boss-Attack S1-Sheet_149
+  - first:
+      213: -9186880384069861029
+    second: Boss-Attack S1-Sheet_150
+  - first:
+      213: -4528984166998952452
+    second: Boss-Attack S1-Sheet_151
+  - first:
+      213: 6370774006673753210
+    second: Boss-Attack S1-Sheet_152
+  - first:
+      213: 3419151923149497973
+    second: Boss-Attack S1-Sheet_153
+  - first:
+      213: -3021249294650759359
+    second: Boss-Attack S1-Sheet_154
+  - first:
+      213: 6769158938635357972
+    second: Boss-Attack S1-Sheet_155
+  - first:
+      213: 8391165453854663768
+    second: Boss-Attack S1-Sheet_156
+  - first:
+      213: -4480283136776229026
+    second: Boss-Attack S1-Sheet_157
+  - first:
+      213: 3935214674179125886
+    second: Boss-Attack S1-Sheet_158
+  - first:
+      213: 3281896830377273038
+    second: Boss-Attack S1-Sheet_159
+  - first:
+      213: 232868519408586418
+    second: Boss-Attack S1-Sheet_160
+  - first:
+      213: -2842057579496744640
+    second: Boss-Attack S1-Sheet_161
+  - first:
+      213: -4630084992722571368
+    second: Boss-Attack S1-Sheet_162
+  - first:
+      213: -7995680243240994434
+    second: Boss-Attack S1-Sheet_163
+  - first:
+      213: -2830493234501890759
+    second: Boss-Attack S1-Sheet_164
+  - first:
+      213: 1249521134751556445
+    second: Boss-Attack S1-Sheet_165
+  - first:
+      213: -3910350407225121858
+    second: Boss-Attack S1-Sheet_166
+  - first:
+      213: -6994897826636001093
+    second: Boss-Attack S1-Sheet_167
+  - first:
+      213: 7407963940279343751
+    second: Boss-Attack S1-Sheet_168
+  - first:
+      213: -8286211137339653092
+    second: Boss-Attack S1-Sheet_169
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 576
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7def429755771cda0800000000000000
+      internalID: -5926324425654468905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 576
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f06869920cdd774a0800000000000000
+      internalID: -6595559311859612145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 576
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36a2b13dbe18fe600800000000000000
+      internalID: 499760933520484963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 576
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dd1a0ad0b00e8e40800000000000000
+      internalID: 5660462541223632343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 576
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dada92f44363251e0800000000000000
+      internalID: -2210644868791161427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 576
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da5cd5aa067be7370800000000000000
+      internalID: 8322290787230270893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faeaea5e6f735ee40800000000000000
+      internalID: 5685011638180032175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da5e83f6980cfd880800000000000000
+      internalID: -8583930668235823699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71d950cf26e7b46a0800000000000000
+      internalID: -6463933876560093929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de785e04f4eee84c0800000000000000
+      internalID: -4283224171424151571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 384
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e999b567b38a18a30800000000000000
+      internalID: 4215835699537746334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 384
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a64a27f5f743f640800000000000000
+      internalID: 5112509123734947488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a27e527db4a5e5210800000000000000
+      internalID: 1323594622272137002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b47249da2474eff60800000000000000
+      internalID: 8069965934000088907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf9a92c6382d0e8c0800000000000000
+      internalID: -3971943409443558916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecfa6951c69fdef80800000000000000
+      internalID: -8075524314191450162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 192
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79a7bf42f147259c0800000000000000
+      internalID: -3939959046882493801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 192
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aba37b63c9293720800000000000000
+      internalID: 2826336160449801127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07b4ec425153bd340800000000000000
+      internalID: 4889560185368890224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6d1e4ff9ba360cb0800000000000000
+      internalID: -4898162974192165521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43c2f863d36abff10800000000000000
+      internalID: 2304618416168709172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07336228638508bb0800000000000000
+      internalID: -4935848200463043728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dfeeb456c4a73380800000000000000
+      internalID: -8991536959289626669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss-Attack S1-Sheet_23
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 128
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed917f121e2e34b70800000000000000
+      internalID: 8882192346670111198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 25edfb0bcb0ae1e4db48a2b1c53b5f74
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":128.0,"y":192.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Boss-Attack S1-Sheet_0: -5926324425654468905
+      Boss-Attack S1-Sheet_1: -6595559311859612145
+      Boss-Attack S1-Sheet_10: 4215835699537746334
+      Boss-Attack S1-Sheet_11: 5112509123734947488
+      Boss-Attack S1-Sheet_12: 1323594622272137002
+      Boss-Attack S1-Sheet_13: 8069965934000088907
+      Boss-Attack S1-Sheet_14: -3971943409443558916
+      Boss-Attack S1-Sheet_15: -8075524314191450162
+      Boss-Attack S1-Sheet_16: -3939959046882493801
+      Boss-Attack S1-Sheet_17: 2826336160449801127
+      Boss-Attack S1-Sheet_18: 4889560185368890224
+      Boss-Attack S1-Sheet_19: -4898162974192165521
+      Boss-Attack S1-Sheet_2: 499760933520484963
+      Boss-Attack S1-Sheet_20: 2304618416168709172
+      Boss-Attack S1-Sheet_21: -4935848200463043728
+      Boss-Attack S1-Sheet_22: -8991536959289626669
+      Boss-Attack S1-Sheet_23: 8882192346670111198
+      Boss-Attack S1-Sheet_3: 5660462541223632343
+      Boss-Attack S1-Sheet_4: -2210644868791161427
+      Boss-Attack S1-Sheet_5: 8322290787230270893
+      Boss-Attack S1-Sheet_6: 5685011638180032175
+      Boss-Attack S1-Sheet_7: -8583930668235823699
+      Boss-Attack S1-Sheet_8: -6463933876560093929
+      Boss-Attack S1-Sheet_9: -4283224171424151571
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

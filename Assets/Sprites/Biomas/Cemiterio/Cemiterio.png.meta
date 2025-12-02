@@ -1,0 +1,663 @@
+fileFormatVersion: 2
+guid: 8a9a9582415ec954b8898bbadac7ceba
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4818254299014634345
+    second: Cemiterio_0
+  - first:
+      213: 7479653275168461097
+    second: Cemiterio_1
+  - first:
+      213: 2054227283232979537
+    second: Cemiterio_2
+  - first:
+      213: -343474194764527914
+    second: Cemiterio_3
+  - first:
+      213: -2638486963573674909
+    second: Cemiterio_4
+  - first:
+      213: -245818801794634665
+    second: Cemiterio_5
+  - first:
+      213: -1630091587263986081
+    second: Cemiterio_6
+  - first:
+      213: -3608213336641587877
+    second: Cemiterio_7
+  - first:
+      213: -7499311808976624433
+    second: Cemiterio_8
+  - first:
+      213: -4910449491444959326
+    second: Cemiterio_9
+  - first:
+      213: 4781303149945348131
+    second: Cemiterio_10
+  - first:
+      213: -4071916718450464088
+    second: Cemiterio_11
+  - first:
+      213: 2232830302132864921
+    second: Cemiterio_12
+  - first:
+      213: 3568046948335835673
+    second: Cemiterio_13
+  - first:
+      213: -7141080191050116518
+    second: Cemiterio_14
+  - first:
+      213: 1949102102284109191
+    second: Cemiterio_15
+  - first:
+      213: -8807130743611448239
+    second: Cemiterio_16
+  - first:
+      213: 1076500354002265884
+    second: Cemiterio_17
+  - first:
+      213: -4620727152449878908
+    second: Cemiterio_18
+  - first:
+      213: 3957865587495438729
+    second: Cemiterio_19
+  - first:
+      213: 4205474307361442488
+    second: Cemiterio_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Cemiterio_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 974
+        width: 66
+        height: 47
+      alignment: 9
+      pivot: {x: 0.5, y: 0.37677133}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 794ebb54e3f122db0800000000000000
+      internalID: -4818254299014634345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_1
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 974
+        width: 66
+        height: 47
+      alignment: 9
+      pivot: {x: 0.5, y: 0.37589735}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 921d08d56011dc760800000000000000
+      internalID: 7479653275168461097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_2
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 974
+        width: 66
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3896365}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15a740194d4128c10800000000000000
+      internalID: 2054227283232979537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_3
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 974
+        width: 66
+        height: 47
+      alignment: 9
+      pivot: {x: 0.5, y: 0.38614735}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d60c872a0cbb3bf0800000000000000
+      internalID: -343474194764527914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_4
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 895
+        width: 66
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36c21bff516326bd0800000000000000
+      internalID: -2638486963573674909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_5
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 895
+        width: 66
+        height: 65
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75c2be72a1da69cf0800000000000000
+      internalID: -245818801794634665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_6
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 735
+        width: 202
+        height: 227
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5607c58650c069e0800000000000000
+      internalID: -1630091587263986081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_7
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 735
+        width: 168
+        height: 120
+      alignment: 9
+      pivot: {x: 0.40455487, y: 0.29113972}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b55b6a3661d0dedc0800000000000000
+      internalID: -3608213336641587877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_8
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 735
+        width: 168
+        height: 120
+      alignment: 9
+      pivot: {x: 0.4045549, y: 0.2911397}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc46e0e84a71de790800000000000000
+      internalID: -7499311808976624433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_9
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 555
+        width: 179
+        height: 141
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a7fce644349adbb0800000000000000
+      internalID: -4910449491444959326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_10
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 556
+        width: 48
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 320e2f7e1e99a5240800000000000000
+      internalID: 4781303149945348131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_11
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 549
+        width: 249
+        height: 153
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8aa29c98155ad77c0800000000000000
+      internalID: -4071916718450464088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_12
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 574
+        width: 56
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9978b5a645b9cfe10800000000000000
+      internalID: 2232830302132864921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_13
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 559
+        width: 26
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91a59719bcf348130800000000000000
+      internalID: 3568046948335835673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_14
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 547
+        width: 74
+        height: 163
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5211ebb669c5ec90800000000000000
+      internalID: -7141080191050116518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_15
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 537
+        width: 44
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7858c95090a9c0b10800000000000000
+      internalID: 1949102102284109191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_16
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 525
+        width: 214
+        height: 201
+      alignment: 9
+      pivot: {x: 0.39954898, y: 0.46180382}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1542e983049c6c580800000000000000
+      internalID: -8807130743611448239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_17
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 559
+        width: 93
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1723e05e5f70fe00800000000000000
+      internalID: 1076500354002265884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_18
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 159
+        width: 328
+        height: 339
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4840932f221efdfb0800000000000000
+      internalID: -4620727152449878908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_19
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 159
+        width: 328
+        height: 339
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 989886b38c92de630800000000000000
+      internalID: 3957865587495438729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cemiterio_20
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 207
+        width: 110
+        height: 236
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ba8f4ad998dc5a30800000000000000
+      internalID: 4205474307361442488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e235a3a2f3e42a845aac1b1b1673b272
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Cemiterio_0: -4818254299014634345
+      Cemiterio_1: 7479653275168461097
+      Cemiterio_10: 4781303149945348131
+      Cemiterio_11: -4071916718450464088
+      Cemiterio_12: 2232830302132864921
+      Cemiterio_13: 3568046948335835673
+      Cemiterio_14: -7141080191050116518
+      Cemiterio_15: 1949102102284109191
+      Cemiterio_16: -8807130743611448239
+      Cemiterio_17: 1076500354002265884
+      Cemiterio_18: -4620727152449878908
+      Cemiterio_19: 3957865587495438729
+      Cemiterio_2: 2054227283232979537
+      Cemiterio_20: 4205474307361442488
+      Cemiterio_3: -343474194764527914
+      Cemiterio_4: -2638486963573674909
+      Cemiterio_5: -245818801794634665
+      Cemiterio_6: -1630091587263986081
+      Cemiterio_7: -3608213336641587877
+      Cemiterio_8: -7499311808976624433
+      Cemiterio_9: -4910449491444959326
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

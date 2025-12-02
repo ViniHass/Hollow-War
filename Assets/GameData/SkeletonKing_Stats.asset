@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af29e59ce3db5724fad165b7fddd5c91, type: 3}
+  m_Name: SkeletonKing_Stats
+  m_EditorClassIdentifier: Assembly-CSharp::BossStats
+  maxHealth: 20
+  barrierDuration: 5
+  damagePerAttack: 1
+  attackCooldown: 2
+  maxDetectionRange: 15
+  maxPlayerDistance: 10
+  teleportOutAnimationDuration: 0.5
+  teleportReappearDelay: 0.3
+  teleportMinDistance: 4
+  teleportMaxDistance: 7
+  castDelayOrb: 0.5
+  castDelaySword: 0.3
+  orbSpeed: 8
+  orbLifetime: 5
+  swordArcDuration: 0.5
+  swordLifetime: 0.7

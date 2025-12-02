@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac54dab5799946a9a741d3196f479cd, type: 3}
+  m_Name: Dialogue_Completed
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  talkScript:
+  - name: Ragnar
+    text: "A L\xE2mina. Impressionante. Voc\xEA n\xE3o hesitou ao traz\xEA-la, mesmo
+      sentindo o que ela carrega."
+  - name: Ragnar
+    text: "Aqui est\xE1, o T\xF4nico de F\xFAria da Ess\xEAncia. Beba. Voc\xEA est\xE1
+      pronto para a dor e o poder?"
+  - name: Ragnar
+    text: "Sinta isso! Agora voc\xEA tem a for\xE7a bruta. Mas for\xE7a sem controle
+      \xE9 caos. Seu treinamento come\xE7a agora."
+  - name: Ragnar
+    text: "V\xE1 para as Rochas do Norte. \xC9 onde est\xE1 o guerreiro mais forte
+      de sua jornada. Use sua nova habilidade e derrote-o. Prove que voc\xEA pode
+      manter a F\xFAria sob controle."

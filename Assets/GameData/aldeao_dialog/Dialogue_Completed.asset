@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac54dab5799946a9a741d3196f479cd, type: 3}
+  m_Name: Dialogue_Completed
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  talkScript:
+  - name: Goblin
+    text: Toma ai apressadinho, vai fazer sua armadilha
+  - name: "Alde\xE3o"
+    text: Sou extremamente grato, obrigado pela ajuda
+  - name: "Alde\xE3o"
+    text: "Ouvi falar que um de nossos ancestrais esta precisando de voc\xEA, v\xE1
+      ao cemit\xE9rio para ajuda-lo"
+  - name: Goblin
+    text: "Mais essa ? Voc\xEAs se metem em confus\xE3o e eu que tenho que resolver
+      tudo"
+  - name: Goblin
+    text: "Mas fazer o que n\xE9? Estou a caminho"

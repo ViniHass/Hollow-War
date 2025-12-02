@@ -12,16 +12,24 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private GameObject hitboxE;
     [SerializeField] private GameObject hitboxW;
     
+    [Header("Audio")]
+    [SerializeField] private AudioClip attackSound;
+    [Range(0f, 2f)]
+    [SerializeField] private float attackVolume = 1f;
+    
     // Componentes e Variáveis
-    private Transform player;
+    private Transform player; // Apenas uma referência de segurança
+    private Transform currentTarget; // O ALVO ATUAL (Decoy ou Player)
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    private Vector2 lastDirection = Vector2.down; // Começa olhando para Sul
+    
+    // Estado
+    private Vector2 lastDirection = Vector2.down; 
     private Color originalColor;
     private bool canAttack = true;
 
-    private enum State { Idle, Chasing, Attacking, Feedback }
+    private enum State { Idle, Chasing, CombatIdle, Attacking, Feedback }
     private State currentState;
 
     void Awake()
@@ -31,99 +39,137 @@ public class EnemyAI : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
         
-        // Configura o raio da zona de detecção
-        transform.Find("DetectionZone").GetComponent<CircleCollider2D>().radius = stats.detectionRadius;
+        // Configura o raio do colisor filho baseado nos stats
+        var zone = transform.Find("DetectionZone");
+        if(zone) zone.GetComponent<CircleCollider2D>().radius = stats.detectionRadius;
     }
 
     void Start()
     {
-        // Encontra o player pela tag do seu Hurtbox
-        GameObject playerHurtbox = GameObject.FindGameObjectWithTag("Player");
-        if(playerHurtbox != null)
-        {
-            player = playerHurtbox.transform.parent; // Pega o objeto pai (o Player em si)
-        }
         currentState = State.Idle;
     }
 
     void Update()
     {
-        if (player == null || currentState == State.Attacking || currentState == State.Feedback)
+        // 1. Bloqueios de Estado: Se estiver atacando ou tomando dano, a física/lógica de movimento não roda.
+        if (currentState == State.Attacking || currentState == State.Feedback) return;
+
+        // 2. Sem alvo -> Idle
+        if (currentTarget == null)
         {
-            animator.SetBool("isMoving", false);
+            if (currentState != State.Idle) EnterIdleState();
             return;
         }
 
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        // 3. Lógica de Combate e Movimento
+        float distanceToTarget = Vector2.Distance(transform.position, currentTarget.position);
 
-        if (currentState == State.Chasing)
+        // Está dentro da distância de ataque?
+        if (distanceToTarget <= stats.attackRadius)
         {
-            if (distanceToPlayer <= stats.attackRadius && canAttack)
+            // Pode atacar?
+            if (canAttack)
             {
-                StartCoroutine(Attack());
+                StartCoroutine(AttackSequence());
             }
             else
             {
-                ChasePlayer();
+                // --- CORREÇÃO DO BUG ---
+                // Está perto, mas em cooldown. Fica parado encarando (CombatIdle).
+                EnterCombatIdleState();
             }
         }
-    }
-
-    public void OnPlayerEnterDetectionZone()
-    {
-        if (currentState == State.Idle)
+        else
         {
-            currentState = State.Chasing;
+            // Está longe -> Persegue
+            ChaseTarget();
         }
     }
 
-    public void OnPlayerExitDetectionZone()
+    // --- ESTADOS E COMPORTAMENTOS ---
+
+    private void EnterIdleState()
     {
-        if (currentState == State.Chasing)
-        {
-            currentState = State.Idle;
-            rb.linearVelocity = Vector2.zero;
-            animator.SetBool("isMoving", false);
-        }
+        currentState = State.Idle;
+        rb.linearVelocity = Vector2.zero;
+        animator.SetBool("isMoving", false);
     }
 
-    private void ChasePlayer()
+    private void EnterCombatIdleState()
     {
-        Vector2 direction = (player.position - transform.position).normalized;
+        currentState = State.CombatIdle;
+        rb.linearVelocity = Vector2.zero; // Garante que pare
+        animator.SetBool("isMoving", false);
+        
+        // Opcional: Virar para o player mesmo parado
+        Vector2 direction = (currentTarget.position - transform.position).normalized;
+        UpdateAnimationFacing(direction); 
+    }
+
+    private void ChaseTarget()
+    {
+        currentState = State.Chasing;
+        
+        // Calcula direção
+        Vector2 direction = (currentTarget.position - transform.position).normalized;
+        
+        // Move
         rb.linearVelocity = direction * stats.moveSpeed;
-        UpdateAnimation(direction);
+        
+        // Anima
+        animator.SetBool("isMoving", true);
+        UpdateAnimationFacing(direction);
     }
 
-    private IEnumerator Attack()
+    private IEnumerator AttackSequence()
     {
         currentState = State.Attacking;
         canAttack = false;
-        rb.linearVelocity = Vector2.zero;
         
-        Vector2 direction = (player.position - transform.position).normalized;
-        UpdateAnimation(direction);
+        // Para imediatamente o movimento
+        rb.linearVelocity = Vector2.zero;
+        animator.SetBool("isMoving", false); // Garante que a animação de andar pare
+
+        // Define direção do ataque
+        Vector2 direction = (currentTarget.position - transform.position).normalized;
+        UpdateAnimationFacing(direction);
         animator.SetTrigger("Attack");
+
+        // 🎵 Reproduz o som de ataque
+        if (AudioManager.Instance != null && attackSound != null)
+        {
+            AudioManager.Instance.PlaySound(attackSound, transform.position, attackVolume);
+        }
 
         yield return new WaitForSeconds(stats.attackHitboxDelay);
 
+        // Ativa Hitbox
         GameObject hitboxToActivate = GetHitboxForDirection(direction);
-        hitboxToActivate.GetComponent<EnemyHitbox>().damage = stats.attackDamage;
+        var hitboxScript = hitboxToActivate.GetComponent<EnemyHitbox>();
+        if(hitboxScript) hitboxScript.damage = stats.attackDamage;
+        
         hitboxToActivate.SetActive(true);
 
+        // Tempo da Hitbox ativa
         yield return new WaitForSeconds(stats.attackHitboxActiveTime);
 
         hitboxToActivate.SetActive(false);
-        currentState = State.Chasing;
 
+        // (Opcional) Pequeno delay pós-ataque para ele não "patinar" instantaneamente (Recovery)
+        yield return new WaitForSeconds(0.1f);
+
+        currentState = State.Chasing; // Libera o Update para decidir o próximo passo
+
+        // Cooldown
         yield return new WaitForSeconds(stats.attackCooldown);
         canAttack = true;
     }
 
-    private void UpdateAnimation(Vector2 direction)
+    // --- AUXILIARES ---
+
+    private void UpdateAnimationFacing(Vector2 direction)
     {
-        animator.SetBool("isMoving", direction.magnitude > 0);
         lastDirection = direction;
-        // Para uma Blend Tree cardinal, é melhor passar valores "puros"
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
             animator.SetFloat("moveX", direction.x > 0 ? 1 : -1);
@@ -136,6 +182,9 @@ public class EnemyAI : MonoBehaviour
         }
     }
     
+    public void SetTarget(Transform target) { currentTarget = target; }
+    public void ClearTarget() { currentTarget = null; }
+
     public void TriggerFeedback(Vector2 knockbackDirection)
     {
         StartCoroutine(FeedbackCoroutine(knockbackDirection));
@@ -143,29 +192,43 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator FeedbackCoroutine(Vector2 knockbackDirection)
     {
+        // Salva o estado anterior se quiser voltar exatamente para ele, 
+        // mas geralmente voltar para Chasing/Idle no Update é mais seguro.
         currentState = State.Feedback;
+        
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(knockbackDirection * stats.knockbackForce, ForceMode2D.Impulse);
 
-        spriteRenderer.color = Color.white;
+        spriteRenderer.color = Color.white; // Flash
         yield return new WaitForSeconds(stats.flashDuration);
         spriteRenderer.color = originalColor;
 
         yield return new WaitForSeconds(stats.knockbackDuration - stats.flashDuration);
 
-        rb.linearVelocity = Vector2.zero; // Para o knockback abruptamente
-        currentState = State.Chasing;
+        rb.linearVelocity = Vector2.zero; 
+        
+        // Ao terminar o feedback, liberamos o estado para o Update decidir
+        if(currentTarget != null)
+            currentState = State.Chasing;
+        else
+            currentState = State.Idle;
     }
 
     private GameObject GetHitboxForDirection(Vector2 direction)
     {
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-        {
             return direction.x > 0 ? hitboxE : hitboxW;
-        }
         else
-        {
             return direction.y > 0 ? hitboxN : hitboxS;
+    }
+
+    // Debug visual para entender o alcance
+    void OnDrawGizmosSelected()
+    {
+        if(stats != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, stats.attackRadius);
         }
     }
 }

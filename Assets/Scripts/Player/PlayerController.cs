@@ -5,7 +5,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     [Header("Configuration")]
-    [SerializeField] private PlayerStats stats;
+    [SerializeField] private PlayerStats stats; // Seu gamedata (valores BASE)
 
     [Header("Hitbox References")]
     [SerializeField] private GameObject hitboxNE;
@@ -13,21 +13,77 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject hitboxSW;
     [SerializeField] private GameObject hitboxSE;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip footstepLoop; 
+    [Range(0f, 2f)]
+    [SerializeField] private float footstepVolume = 0.5f;
+
+    [Header("Skill: Dagger (Pedra)")]
+    [SerializeField] private GameObject daggerPrefab;
+    [SerializeField] private float daggerSpawnOffset = 0.5f;
+    [SerializeField] private AudioClip daggerThrowSound;
+    [Tooltip("Item necessário no inventário para lançar adagas/pedras")]
+    [SerializeField] private ItemData requiredStoneItem;
+    
+    private float daggerCooldownTimer = 0f;
+    private bool isDaggerOnCooldown = false;
+
+    [Header("Skill: Decoy")]
+    [SerializeField] private GameObject decoyPrefab;
+    [SerializeField] private float decoySpawnOffset = 1.0f;
+    
+    private float decoyCooldownTimer = 0f;
+    private bool isDecoyOnCooldown = false;
+
+    // 🌟 MODIFICADORES DE STATS (aplicados sobre os valores base)
+    [Header("📊 Modificadores Permanentes")]
+    [SerializeField] private float moveSpeedModifier = 0f;
+    [SerializeField] private int maxHealthModifier = 0;
+    [SerializeField] private int attackDamageModifier = 0;
+    [SerializeField] private int daggerDamageModifier = 0;
+    [SerializeField] private float daggerCooldownModifier = 0f;
+    [SerializeField] private float decoyCooldownModifier = 0f;
+    [SerializeField] private float decoyDurationModifier = 0f;
+
+    // Propriedades públicas para acessar os stats MODIFICADOS
+    public float CurrentMoveSpeed => stats.moveSpeed + moveSpeedModifier;
+    public int CurrentMaxHealth => stats.maxHealth + maxHealthModifier;
+    public int CurrentAttackDamage => stats.attackDamage + attackDamageModifier;
+    public int CurrentDaggerDamage => stats.daggerDamage + daggerDamageModifier;
+    public float CurrentDaggerCooldown => Mathf.Max(0, stats.daggerCooldown - daggerCooldownModifier);
+    public float CurrentDecoyCooldown => Mathf.Max(0, stats.decoyCooldown - decoyCooldownModifier);
+    public float CurrentDecoyDuration => stats.decoyDuration + decoyDurationModifier;
+
     // Eventos
     public static event Action<Vector2> OnMove;
     public static event Action<Vector2> OnAttack;
 
     // Componentes e Variáveis
     private Rigidbody2D rb;
+    private Inventory inventory; // 🪨 Referência ao inventário
     private Vector2 movementInput;
-    private Vector2 lastDirection = new Vector2(1, 1); // Começa olhando para NE por padrão
+    private Vector2 lastDirection = new Vector2(1, 1);
     private bool isAttacking = false;
-    private Hitbox activeHitbox; // Para guardar a referência da hitbox ativa
+    private Hitbox activeHitbox;
+    private AudioSource footstepAudioSource;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        // Garante que todas as hitboxes começam desativadas
+        inventory = GetComponent<Inventory>(); // 🪨 Pega o componente Inventory
+
+        if (inventory == null)
+        {
+            Debug.LogError("⚠️ Componente Inventory não encontrado no Player! O sistema de adagas não funcionará corretamente.");
+        }
+
+        footstepAudioSource = gameObject.AddComponent<AudioSource>();
+        footstepAudioSource.clip = footstepLoop;
+        footstepAudioSource.loop = true; 
+        footstepAudioSource.playOnAwake = false;
+        footstepAudioSource.volume = footstepVolume;
+
         hitboxNE.SetActive(false);
         hitboxNW.SetActive(false);
         hitboxSW.SetActive(false);
@@ -36,10 +92,36 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Cooldown da adaga
+        if (isDaggerOnCooldown)
+        {
+            daggerCooldownTimer -= Time.deltaTime;
+            if (daggerCooldownTimer <= 0)
+            {
+                isDaggerOnCooldown = false;
+                Debug.Log("🗡️ Skill Adaga pronta!");
+            }
+        }
+
+        // Cooldown do decoy
+        if (isDecoyOnCooldown)
+        {
+            decoyCooldownTimer -= Time.deltaTime;
+            if (decoyCooldownTimer <= 0)
+            {
+                isDecoyOnCooldown = false;
+                Debug.Log("Skill Decoy pronta!");
+            }
+        }
+
         if (isAttacking)
         {
             movementInput = Vector2.zero;
             OnMove?.Invoke(movementInput);
+            if (footstepAudioSource.isPlaying)
+            {
+                footstepAudioSource.Stop();
+            }
             return;
         }
 
@@ -50,75 +132,286 @@ public class PlayerController : MonoBehaviour
         if (movementInput.magnitude > 0)
         {
             lastDirection = movementInput;
+            if (!footstepAudioSource.isPlaying)
+            {
+                footstepAudioSource.volume = footstepVolume;
+                footstepAudioSource.Play();
+            }
+        }
+        else
+        {
+            if (footstepAudioSource.isPlaying)
+            {
+                footstepAudioSource.Stop();
+            }
         }
 
         OnMove?.Invoke(movementInput);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        // 🎯 Ataque com clique esquerdo do mouse
+        if (Input.GetMouseButtonDown(0))
         {
             StartCoroutine(AttackCoroutine());
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !isAttacking && !isDecoyOnCooldown)
+        {
+            UseDecoy();
+        }
+
+        // 🪨 Adaga/Pedra com clique direito do mouse (requer pedra no inventário)
+        if (Input.GetMouseButtonDown(1) && !isDaggerOnCooldown)
+        {
+            ThrowDagger();
+        }
+    }
+
+    // 🌟 NOVO MÉTODO: Garante que o Player não esteja preso em nenhum estado 🌟
+    public void ResetStateOnRespawn()
+    {
+        // 1. Limpa o estado de ataque
+        isAttacking = false;
+        
+        // 2. Limpa o input de movimento
+        movementInput = Vector2.zero;
+        
+        // 3. Garante que qualquer hitbox ativa seja desativada
+        if (activeHitbox != null && activeHitbox.gameObject.activeSelf)
+        {
+            activeHitbox.gameObject.SetActive(false);
+        }
+        
+        // 4. Garante que o som de passo seja parado
+        if (footstepAudioSource.isPlaying)
+        {
+            footstepAudioSource.Stop();
+        }
+        
+        // 5. Opcional: Chama o evento de movimento com zero para atualizar a animação para Idle
+        OnMove?.Invoke(Vector2.zero);
+
+        Debug.Log("🔄 PlayerController: Estados de ação resetados para o Respawn.");
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movementInput * stats.moveSpeed * Time.fixedDeltaTime);
+        // USA O STAT MODIFICADO
+        rb.MovePosition(rb.position + movementInput * CurrentMoveSpeed * Time.fixedDeltaTime);
     }
 
     private IEnumerator AttackCoroutine()
     {
         isAttacking = true;
-        OnAttack?.Invoke(lastDirection); // Dispara a animação
+        
+        // 🎯 Calcula a direção do mouse em relação ao jogador
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPosition.z = 0; // Garante que o Z seja 0 (jogo 2D)
+        
+        Vector2 attackDirection = (mouseWorldPosition - transform.position).normalized;
+        
+        // Se o mouse estiver muito perto do jogador (deadzone), usa a última direção
+        if (Vector2.Distance(transform.position, mouseWorldPosition) < 0.5f)
+        {
+            attackDirection = lastDirection;
+        }
+        
+        OnAttack?.Invoke(attackDirection);
 
-        // 1. Espera o delay inicial
+        if (AudioManager.Instance != null && attackSound != null)
+        {
+            AudioManager.Instance.PlaySound(attackSound, transform.position, 1f);
+        }
+
         yield return new WaitForSeconds(stats.attackHitboxDelay);
-
-        // 2. Determina qual hitbox ativar com base na última direção
-        GameObject hitboxToActivate = GetHitboxForDirection(lastDirection);
+        GameObject hitboxToActivate = GetHitboxForDirection(attackDirection);
         if (hitboxToActivate != null)
         {
             hitboxToActivate.SetActive(true);
-            // Informa à hitbox quanto dano ela deve causar
             activeHitbox = hitboxToActivate.GetComponent<Hitbox>();
             if (activeHitbox != null)
             {
-                activeHitbox.damage = stats.attackDamage;
+                // USA O DANO MODIFICADO
+                activeHitbox.damage = CurrentAttackDamage;
             }
         }
-        
-        // 3. Espera o tempo em que a hitbox ficará ativa
         yield return new WaitForSeconds(stats.attackHitboxActiveTime);
-
-        // 4. Desativa a hitbox
         if (hitboxToActivate != null)
         {
             hitboxToActivate.SetActive(false);
         }
-
-        // 5. Espera o restante da animação para destravar o movimento
         float remainingTime = stats.attackAnimationDuration - stats.attackHitboxDelay - stats.attackHitboxActiveTime;
-        if(remainingTime > 0)
+        if (remainingTime > 0)
         {
             yield return new WaitForSeconds(remainingTime);
         }
-        
         isAttacking = false;
+    }
+
+    private void ThrowDagger()
+    {
+        // 🪨 VERIFICAÇÃO: Verifica se o jogador tem o item necessário no inventário
+        if (requiredStoneItem == null)
+        {
+            Debug.LogError("⚠️ ItemData 'requiredStoneItem' não foi atribuído no Inspector!");
+            return;
+        }
+
+        if (inventory == null)
+        {
+            Debug.LogError("⚠️ Inventário não encontrado no Player!");
+            return;
+        }
+
+        if (!inventory.HasItem(requiredStoneItem))
+        {
+            Debug.Log("🪨 Você precisa de uma pedra no inventário para lançar!");
+            
+            // Mensagem na tela para o jogador
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.ShowGlobalMessage("Você precisa de uma pedra para lançar!", 2f);
+            }
+            return;
+        }
+
+        if (daggerPrefab == null)
+        {
+            Debug.LogError("⚠️ Prefab da adaga não foi atribuído no PlayerController!");
+            return;
+        }
+
+        // 🪨 Remove a pedra do inventário
+        inventory.RemoveItem(requiredStoneItem);
+
+        // 🎯 Calcula a direção do mouse em relação ao jogador
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPosition.z = 0; // Garante que o Z seja 0 (jogo 2D)
+        
+        Vector2 directionToMouse = (mouseWorldPosition - transform.position).normalized;
+
+        // Se o mouse estiver muito perto do jogador (deadzone), usa a última direção
+        if (Vector2.Distance(transform.position, mouseWorldPosition) < 0.5f)
+        {
+            directionToMouse = lastDirection;
+        }
+
+        isDaggerOnCooldown = true;
+        daggerCooldownTimer = CurrentDaggerCooldown;
+        Debug.Log($"🪨 Pedra lançada na direção do mouse! Cooldown de {CurrentDaggerCooldown}s iniciado.");
+
+        // Calcula a posição de spawn ligeiramente à frente do player na direção do mouse
+        Vector3 spawnPosition = transform.position + (Vector3)directionToMouse * daggerSpawnOffset;
+
+        // Instancia a adaga/pedra
+        GameObject daggerInstance = Instantiate(daggerPrefab, spawnPosition, Quaternion.identity);
+
+        // Inicializa o script da adaga com a direção do mouse
+        DaggerProjectile daggerScript = daggerInstance.GetComponent<DaggerProjectile>();
+        if (daggerScript != null)
+        {
+            daggerScript.Initialize(directionToMouse, stats.daggerSpeed, CurrentDaggerDamage, stats.daggerLifetime);
+        }
+        else
+        {
+            Debug.LogError("⚠️ O prefab da adaga está sem o script DaggerProjectile.cs!");
+        }
+
+        // Reproduz o som de lançamento
+        if (AudioManager.Instance != null && daggerThrowSound != null)
+        {
+            AudioManager.Instance.PlaySound(daggerThrowSound, transform.position, 1f);
+        }
     }
 
     private GameObject GetHitboxForDirection(Vector2 direction)
     {
-        // Arredondamos a direção para simplificar a lógica (ex: (0.7, 0.7) vira (1,1))
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        if (angle > 22.5f && angle <= 67.5f) return hitboxNE; // NE
-        if (angle > 67.5f && angle <= 112.5f) return hitboxNE; // N (mapeado para NE)
-        if (angle > 112.5f && angle <= 157.5f) return hitboxNW; // NW
-        if (angle > 157.5f || angle <= -157.5f) return hitboxNW; // W (mapeado para NW)
-        if (angle > -157.5f && angle <= -112.5f) return hitboxSW; // SW
-        if (angle > -112.5f && angle <= -67.5f) return hitboxSW; // S (mapeado para SW)
-        if (angle > -67.5f && angle <= -22.5f) return hitboxSE; // SE
-        if (angle > -22.5f && angle <= 22.5f) return hitboxSE; // E (mapeado para SE)
+        if (angle > 22.5f && angle <= 67.5f) return hitboxNE;
+        if (angle > 67.5f && angle <= 112.5f) return hitboxNE;
+        if (angle > 112.5f && angle <= 157.5f) return hitboxNW;
+        if (angle > 157.5f || angle <= -157.5f) return hitboxNW;
+        if (angle > -157.5f && angle <= -112.5f) return hitboxSW;
+        if (angle > -112.5f && angle <= -67.5f) return hitboxSW;
+        if (angle > -67.5f && angle <= -22.5f) return hitboxSE;
+        if (angle > -22.5f && angle <= 22.5f) return hitboxSE;
 
-        return hitboxNE; // Retorno padrão
+        return hitboxNE;
+    }
+
+    private void UseDecoy()
+    {
+        isDecoyOnCooldown = true;
+        // USA O COOLDOWN MODIFICADO
+        decoyCooldownTimer = CurrentDecoyCooldown;
+        Debug.Log("Usou Decoy! Cooldown de " + CurrentDecoyCooldown + "s iniciado.");
+
+        bool facingRight = lastDirection.x >= 0;
+        Vector2 spawnDirection = facingRight ? Vector2.right : Vector2.left;
+        Vector3 spawnPosition = transform.position + (Vector3)spawnDirection * decoySpawnOffset;
+
+        GameObject decoyInstance = Instantiate(decoyPrefab, spawnPosition, Quaternion.identity);
+
+        Decoy decoyScript = decoyInstance.GetComponent<Decoy>();
+        if (decoyScript != null)
+        {
+            // USA A DURAÇÃO MODIFICADA
+            decoyScript.Initialize(CurrentDecoyDuration, stats.decoyDestructionAnimTime, facingRight);
+        }
+        else
+        {
+            Debug.LogError("O prefab 'Decoy' está sem o script Decoy.cs!");
+        }
+    }
+
+    // 🌟 MÉTODOS PÚBLICOS PARA APLICAR POWER-UPS
+    public void ApplyPowerUp(float moveSpeed, int maxHealth, int attackDamage, float decoyCooldownReduction, float decoyDuration)
+    {
+        Debug.Log($"📊 STATS ANTES DO POWER-UP:\n" +
+                 $"  • Velocidade: {CurrentMoveSpeed}\n" +
+                 $"  • Vida Máxima: {CurrentMaxHealth}\n" +
+                 $"  • Dano: {CurrentAttackDamage}\n" +
+                 $"  • Cooldown Decoy: {CurrentDecoyCooldown}s\n" +
+                 $"  • Duração Decoy: {CurrentDecoyDuration}s");
+
+        moveSpeedModifier += moveSpeed;
+        maxHealthModifier += maxHealth;
+        attackDamageModifier += attackDamage;
+        decoyCooldownModifier += decoyCooldownReduction;
+        decoyDurationModifier += decoyDuration;
+
+        Debug.Log($"⚡ POWER-UP APLICADO COM SUCESSO!\n" +
+                 $"  • Velocidade: {CurrentMoveSpeed} (+{moveSpeed})\n" +
+                 $"  • Vida Máxima: {CurrentMaxHealth} (+{maxHealth})\n" +
+                 $"  • Dano: {CurrentAttackDamage} (+{attackDamage})\n" +
+                 $"  • Cooldown Decoy: {CurrentDecoyCooldown}s (-{decoyCooldownReduction}s)\n" +
+                 $"  • Duração Decoy: {CurrentDecoyDuration}s (+{decoyDuration}s)");
+
+        // Atualizar vida máxima se houve aumento
+        if (maxHealth > 0)
+        {
+            Health playerHealth = GetComponent<Health>();
+            if (playerHealth != null)
+            {
+                playerHealth.IncreaseMaxHealth(maxHealth);
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ Componente Health do jogador não encontrado!");
+            }
+        }
+    }
+
+    // Método para resetar modificadores (útil para Game Over)
+    public void ResetModifiers()
+    {
+        moveSpeedModifier = 0f;
+        maxHealthModifier = 0;
+        attackDamageModifier = 0;
+        daggerDamageModifier = 0;
+        daggerCooldownModifier = 0f;
+        decoyCooldownModifier = 0f;
+        decoyDurationModifier = 0f;
+        Debug.Log("🔄 Modificadores de stats resetados!");
     }
 }
